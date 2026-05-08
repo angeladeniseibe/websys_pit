@@ -8,13 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('inspections', function (Blueprint $table) {
+        Schema::create('leases', function (Blueprint $table) {
             $table->id();
 
-            $table->string('client_name');
+            $table->string('tenant_name');
             $table->string('property_name');
-            $table->date('viewing_date');
-            $table->text('feedback')->nullable();
+
+            $table->date('start_date');
+            $table->date('end_date');
+
+            $table->enum('status', ['available', 'reserved', 'rented'])
+                  ->default('available');
 
             $table->timestamps();
         });
@@ -22,6 +26,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('inspections');
+        Schema::dropIfExists('leases');
     }
 };

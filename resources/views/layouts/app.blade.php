@@ -13,25 +13,28 @@
 <div class="container">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar flex flex-col">
 
         <h1 class="logo">Dream Home</h1>
 
-        <nav>
+        <!-- NAVIGATION -->
+        <nav class="flex flex-col gap-2 mt-6">
+
             <a href="/dashboard">Dashboard</a>
-            <a href="/properties">Properties</a>
-            <a href="/clients">Clients</a>
-            <a href="/reports">Reports</a>
+
+            <a href="{{ route('inspections.index') }}">Inspections</a>
+            <a href="{{ route('leases.index') }}">Lease Management</a>
+
         </nav>
 
-        <!-- LOGOUT BUTTON -->
+        <!-- LOGOUT -->
         <div class="mt-auto pt-10">
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
                 <button type="submit"
-                    class="w-full px-4 py-3 bg-rgba(17,24,39,0.65) rgba(255,255,255,0.1) text-white rounded-xl transition">
+                    class="w-full px-4 py-3 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition">
                     Logout
                 </button>
             </form>

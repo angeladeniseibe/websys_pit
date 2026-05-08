@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Inspection extends Model
+class Lease extends Model
 {
     protected $fillable = [
-        'client_name',
+        'tenant_name',
         'property_name',
-        'viewing_date',
-        'feedback'
+        'start_date',
+        'end_date',
+        'status'
     ];
 }

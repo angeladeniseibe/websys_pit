@@ -3,32 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | DreamHome</title>
+    <title>Register | Dream Home</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
 </head>
+<body class="h-screen overflow-hidden">
 
-<body class="auth-body">
+<section class="h-screen flex items-center justify-center relative">
 
-<div class="auth-container">
+    <!-- BACKGROUND -->
+    <div class="absolute inset-0">
+        <img src="/images/welcome_bg-photo.jpeg"
+             class="w-full h-full object-cover">
+    </div>
 
-    <form method="POST" action="/register" class="auth-card">
-        @csrf
+    <!-- OVERLAY -->
+    <div class="absolute inset-0 bg-black/75"></div>
 
-        <h2>Create Account</h2>
+    <!-- CARD -->
+    <div class="relative z-10
+        bg-white/10 backdrop-blur-xl
+        border border-white/20
+        rounded-2xl
+        shadow-2xl
+        p-6
+        w-full max-w-sm">
 
-        <input type="text" name="name" placeholder="Full Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
+        <!-- TITLE -->
+        <div class="text-center mb-6">
 
-        <button type="submit" class="btn primary full">Register</button>
+            <p class="uppercase tracking-[5px] text-[#d4af37] text-xs mb-2">
+                Dream Home
+            </p>
 
-        <p>Already have an account? <a href="/login">Login</a></p>
+            <h1 class="text-3xl font-bold text-white">
+                Create Account
+            </h1>
 
-    </form>
+        </div>
 
-</div>
+        <!-- FORM -->
+        <form method="POST" action="{{ route('register') }}">
+
+            @csrf
+
+            <div class="space-y-4">
+
+                <input type="text" name="name" placeholder="Name" required
+                    class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
+
+                <input type="email" name="email" placeholder="Email" required
+                    class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
+
+                <input type="password" name="password" placeholder="Password" required
+                    class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
+
+                <input type="password" name="password_confirmation" placeholder="Confirm Password" required
+                    class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
+
+            </div>
+
+            <button type="submit"
+                class="w-full mt-5 bg-[#d4af37] hover:bg-[#c49b1e]
+                text-white py-2.5 rounded-xl font-semibold transition">
+
+                Register
+
+            </button>
+
+        </form>
+
+        <!-- LOGIN -->
+        <p class="text-center text-gray-300 mt-5 text-sm">
+
+            Already have an account?
+
+            <a href="{{ route('login') }}" class="text-[#d4af37] hover:underline">
+                Login
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
 
 </body>
-</html>
