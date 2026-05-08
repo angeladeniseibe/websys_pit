@@ -21,7 +21,7 @@
 
     <!-- BACKGROUND IMAGE -->
     <div class="absolute inset-0">
-        <img src="/images/bg_photo.jpeg"
+        <img src="/images/welcome_bg-photo.jpeg"
              class="w-full h-full object-cover">
     </div>
 
