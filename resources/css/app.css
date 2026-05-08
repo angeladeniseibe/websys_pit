@@ -1,11 +1,323 @@
-@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* =========================
+   TAILWIND
+========================= */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* =========================
+   RESET
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter', sans-serif;
+    background:url('/images/bg_photo.jpeg') no-repeat center center fixed;
+    background-size:cover;
+    color:#111827;
+    position:relative;
+}
+
+/* DARK OVERLAY */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.35);
+    z-index:-1;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.container{
+    display:flex;
+    min-height:100vh;
+    padding:25px;
+    gap:25px;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar{
+    width:260px;
+    background:rgba(17,24,39,0.65);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:22px;
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:700;
+    color:white;
+    margin-bottom:40px;
+}
+
+/* NAVIGATION */
+.sidebar nav{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.sidebar nav a{
+    text-decoration:none;
+    color:#e5e7eb;
+    padding:14px 16px;
+    border-radius:12px;
+    transition:0.2s ease;
+    font-size:15px;
+    font-weight:500;
+}
+
+.sidebar nav a:hover{
+    background:rgba(255,255,255,0.1);
+    color:white;
+}
+
+.sidebar nav a.active{
+    background:#2563eb;
+    color:white;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+.main-content{
+    flex:1;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero{
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:22px;
+    padding:35px;
+    margin-bottom:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.hero h1{
+    font-size:32px;
+    font-weight:700;
+    color:white;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:#f3f4f6;
+    font-size:15px;
+}
+
+/* =========================
+   CARDS
+========================= */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:20px;
+    padding:20px;
+    transition:0.2s ease;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card h3{
+    font-size:15px;
+    color:#f3f4f6;
+    margin-bottom:12px;
+    font-weight:500;
+}
+
+.card p{
+    font-size:25px;
+    font-weight:700;
+    color:white;
+}
+
+/* =========================
+   BOTTOM SECTION
+========================= */
+.bottom-section{
+    margin-top:25px;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.bottom-section h2{
+    margin-bottom:10px;
+    color:white;
+    font-size:22px;
+}
+
+.bottom-section p{
+    color:#f3f4f6;
+    line-height:1.6;
+}
+
+/* =========================
+   AUTH PAGES
+========================= */
+.auth-body{
+    background:url('/images/bg_photo.jpeg') no-repeat center center fixed;
+    background-size:cover;
+    font-family:'Inter', sans-serif;
+}
+
+/* REMOVE OVERLAY */
+.auth-body::before{
+    display:none;
+}
+
+/* AUTH CONTAINER */
+.auth-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
+
+/* AUTH CARD */
+.auth-card{
+    width:100%;
+    max-width:380px;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.2);
+    padding:35px;
+    border-radius:22px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* TITLES */
+.auth-card h1,
+.auth-card h2{
+    text-align:center;
+    margin-bottom:8px;
+    color:rgb(0, 0, 0);
+    font-size:28px;
+    font-weight:700;
+}
+
+.auth-card p{
+    text-align:center;
+    color:#000000;
+    margin-bottom:20px;
+    font-size:14px;
+}
+
+/* INPUTS */
+.auth-card input{
+    width:100%;
+    padding:13px 14px;
+    margin-bottom:15px;
+    border:1px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.12);
+    border-radius:10px;
+    outline:none;
+    color:rgb(0, 0, 0);
+    font-size:14px;
+}
+
+.auth-card input::placeholder{
+    color:#000000;
+}
+
+.auth-card input:focus{
+    border-color:#000000;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn{
+    display:inline-block;
+    padding:13px 18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:0.2s ease;
+}
+
+.primary{
+    background:#2563eb;
+    color:white;
+}
+
+.primary:hover{
+    background:#1d4ed8;
+}
+
+.secondary{
+    background:rgba(255,255,255,0.15);
+    color:white;
+}
+
+.full{
+    width:100%;
+}
+
+/* LINKS */
+.auth-card a{
+    color:#000000;
+    text-decoration:none;
+}
+
+.auth-card a:hover{
+    text-decoration:underline;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:900px){
+
+    .container{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .hero h1{
+        font-size:26px;
+    }
 }
