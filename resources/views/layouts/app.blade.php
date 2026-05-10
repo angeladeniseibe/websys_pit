@@ -20,6 +20,7 @@
         <nav>
             <a href="/dashboard">Dashboard</a>
             <a href="/properties">Properties</a>
+            <a href="/registrations">Client Registration & Staff Assign</a>
             <a href="/clients">Clients</a>
             <a href="/reports">Reports</a>
         </nav>
