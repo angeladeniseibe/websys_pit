@@ -17,9 +17,24 @@
 
         <h2>Create Account</h2>
 
-        <input type="text" name="name" placeholder="Full Name" required>
+        <!-- ADDED FIRST NAME -->
+        <input type="text" name="first_name" placeholder="First Name" required>
+
+        <!-- ADDED LAST NAME -->
+        <input type="text" name="last_name" placeholder="Last Name" required>
+
+        <!-- ADDED ADDRESS -->
+        <input type="text" name="address" placeholder="Address" required>
+
+        <!-- ADDED PHONE -->
+        <input type="text" name="phone" placeholder="Phone Number" required>
+
+        <!-- ORIGINAL FIELDS (kept, but updated name field removed) -->
+
         <input type="email" name="email" placeholder="Email" required>
+
         <input type="password" name="password" placeholder="Password" required>
+
         <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
 
         <button type="submit" class="btn primary full">Register</button>
