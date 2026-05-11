@@ -20,7 +20,7 @@
         <table class="custom-table">
             <thead>
                 <tr>
-                    <th>Tenant</th>
+                    <th>Client's Name</th>
                     <th>Property</th>
                     <th>Start Date</th>
                     <th>End Date</th>
