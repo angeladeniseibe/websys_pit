@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InspectionController;
+use App\Http\Controllers\LeaseController;
 
 
 Route::get('/', function () {
@@ -19,6 +21,9 @@ Route::get('/register', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::resource('inspections', InspectionController::class);
+Route::resource('leases', LeaseController::class);
 
 
 
