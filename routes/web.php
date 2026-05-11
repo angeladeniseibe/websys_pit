@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,5 +28,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\RegistrationController;
+
+Route::get('/registrations', [RegistrationController::class, 'index'])
+    ->name('registrations.index');
+
+Route::get('/registrations/create', [RegistrationController::class, 'create'])->name('registrations.create');
+Route::post('/registrations', [RegistrationController::class, 'store'])->name('registrations.store');
+
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
 
 require __DIR__.'/auth.php';
