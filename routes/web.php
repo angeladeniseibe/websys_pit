@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\StaffController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,11 +24,34 @@ Route::get('/dashboard', function () {
 
 
 
+/*
+|--------------------------------------------------------------------------
+| Protected Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // PROFILE
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
+
+
+    // BRANCH
+    Route::get('/branch', [BranchController::class, 'index'])
+        ->name('branch.index');
+
+
+    // STAFF
+    Route::get('/staff', [StaffController::class, 'index'])
+        ->name('staff.index');
+
 });
 
 require __DIR__.'/auth.php';

@@ -18,10 +18,12 @@
         <h1 class="logo">Dream Home</h1>
 
         <nav>
-            <a href="/dashboard">Dashboard</a>
-            <a href="/properties">Properties</a>
-            <a href="/clients">Clients</a>
-            <a href="/reports">Reports</a>
+            <a href="/dashboard"   class="{{ request()->is('dashboard')   ? 'active' : '' }}">Dashboard</a>
+            <a href="/properties"  class="{{ request()->is('properties*') ? 'active' : '' }}">Properties</a>
+            <a href="/clients"     class="{{ request()->is('clients*')    ? 'active' : '' }}">Clients</a>
+            <a href="/branches"    class="{{ request()->is('branches*')   ? 'active' : '' }}">Branches</a>
+            <a href="/staff"       class="{{ request()->is('staff*')      ? 'active' : '' }}">Staff</a>
+            <a href="/reports"     class="{{ request()->is('reports*')    ? 'active' : '' }}">Reports</a>
         </nav>
 
         <!-- LOGOUT BUTTON -->
