@@ -52,62 +52,51 @@
 
         <!-- FORM -->
         <form method="POST" action="{{ route('register') }}">
-
             @csrf
 
             <div class="space-y-4">
 
-                <input type="text" name="name" placeholder="Name" required
+                <!-- FIRST NAME -->
+                <input type="text" name="first_name" placeholder="First Name" required
                     class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
 
+                <!-- LAST NAME -->
+                <input type="text" name="last_name" placeholder="Last Name" required
+                    class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
+
+                <!-- ADDRESS -->
+                <input type="text" name="address" placeholder="Address" required
+                    class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
+
+                <!-- PHONE -->
+                <input type="text" name="phone" placeholder="Phone Number" required
+                    class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
+
+                <!-- EMAIL -->
                 <input type="email" name="email" placeholder="Email" required
                     class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
 
+                <!-- PASSWORD -->
                 <input type="password" name="password" placeholder="Password" required
                     class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
 
+                <!-- PASSWORD CONFIRMATION -->
                 <input type="password" name="password_confirmation" placeholder="Confirm Password" required
                     class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white">
-
             </div>
 
             <button type="submit"
                 class="w-full mt-5 bg-[#d4af37] hover:bg-[#c49b1e]
                 text-white py-2.5 rounded-xl font-semibold transition">
-
                 Register
-
             </button>
 
         </form>
 
         <!-- LOGIN -->
         <p class="text-center text-gray-300 mt-5 text-sm">
-
-        <!-- ADDED FIRST NAME -->
-        <input type="text" name="first_name" placeholder="First Name" required>
-
-        <!-- ADDED LAST NAME -->
-        <input type="text" name="last_name" placeholder="Last Name" required>
-
-        <!-- ADDED ADDRESS -->
-        <input type="text" name="address" placeholder="Address" required>
-
-        <!-- ADDED PHONE -->
-        <input type="text" name="phone" placeholder="Phone Number" required>
-
-        <!-- ORIGINAL FIELDS (kept, but updated name field removed) -->
-
-        <input type="email" name="email" placeholder="Email" required>
-
-        <input type="password" name="password" placeholder="Password" required>
-
-        <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
-
-            <a href="{{ route('login') }}" class="text-[#d4af37] hover:underline">
-                Login
-            </a>
-
+            Already have an account?
+            <a href="{{ route('login') }}" class="text-[#d4af37] font-semibold">Login</a>
         </p>
 
     </div>
@@ -115,3 +104,4 @@
 </section>
 
 </body>
+</html>

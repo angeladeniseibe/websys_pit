@@ -15,7 +15,7 @@
     padding:0;
     box-sizing:border-box;
 }
-
+/*
 body{
     font-family:'Inter', sans-serif;
     background:url('/images/bg_photo.jpeg') no-repeat center center fixed;
@@ -25,13 +25,15 @@ body{
 }
 
 /* DARK OVERLAY */
-body::before{
+/*body::before{
     content:"";
     position:fixed;
     inset:0;
     background:rgba(0,0,0,0.35);
     z-index:-1;
 }
+*/
+
 
 /* =========================
    LAYOUT
@@ -375,4 +377,35 @@ body::before{
     .hero h1{
         font-size:26px;
     }
+}
+
+/* =========================
+   FINAL FIX (OVERLAY + STACKING)
+========================= */
+
+body {
+    position: relative;
+    z-index: 0;
+}
+
+/* DARK OVERLAY FIX */
+.dashboard-body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ENSURE CONTENT IS ABOVE OVERLAY */
+.container,
+.sidebar,
+.main-content,
+.hero,
+.cards,
+.card,
+.table-section {
+    position: relative;
+    z-index: 2;
 }
