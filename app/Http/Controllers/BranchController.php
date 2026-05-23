@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
     public function index()
     {
-        $branches = Branch::withCount('staff')->latest()->get();
+        $branches = Branch::withCount('staff')->orderBy('branch_no')->get();
         return view('branches.index', compact('branches'));
     }
 
@@ -21,13 +22,13 @@ class BranchController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'         => 'required|string|max:255',
-            'address'      => 'required|string|max:255',
-            'city'         => 'required|string|max:255',
-            'phone'        => 'nullable|string|max:50',
-            'email'        => 'nullable|email|max:255',
-            'manager_name' => 'nullable|string|max:255',
-            'status'       => 'required|in:active,inactive',
+            'branch_no' => 'required|string|max:10|unique:branch,branch_no',
+            'street'    => 'required|string|max:100',
+            'area'      => 'nullable|string|max:100',
+            'city'      => 'required|string|max:50',
+            'postcode'  => 'nullable|string|max:20',
+            'telephone' => 'nullable|string|max:20',
+            'fax'       => 'nullable|string|max:20',
         ]);
 
         Branch::create($validated);
@@ -38,25 +39,25 @@ class BranchController extends Controller
 
     public function show(Branch $branch)
     {
-        $branch->load('staff');
+        $branch->load('staff', 'staff.supervisor', 'staff.manager');
         return view('branches.show', compact('branch'));
     }
 
     public function edit(Branch $branch)
-    {
-        return view('branches.edit', compact('branch'));
-    }
+{
+    $staff = Staff::orderBy('last_name')->get();
+    return view('branches.edit', compact('branch', 'staff'));
+}
 
     public function update(Request $request, Branch $branch)
     {
         $validated = $request->validate([
-            'name'         => 'required|string|max:255',
-            'address'      => 'required|string|max:255',
-            'city'         => 'required|string|max:255',
-            'phone'        => 'nullable|string|max:50',
-            'email'        => 'nullable|email|max:255',
-            'manager_name' => 'nullable|string|max:255',
-            'status'       => 'required|in:active,inactive',
+            'street'    => 'required|string|max:100',
+            'area'      => 'nullable|string|max:100',
+            'city'      => 'required|string|max:50',
+            'postcode'  => 'nullable|string|max:20',
+            'telephone' => 'nullable|string|max:20',
+            'fax'       => 'nullable|string|max:20',
         ]);
 
         $branch->update($validated);
