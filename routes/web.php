@@ -75,8 +75,6 @@ Route::middleware('auth')->group(function () {
         ->name('profile.destroy');
 });
 
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\RegistrationController;
 
 Route::get('/registrations', [RegistrationController::class, 'index'])
     ->name('registrations.index');
