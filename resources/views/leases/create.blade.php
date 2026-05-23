@@ -2,38 +2,76 @@
 
 @section('content')
 
-<h1 class="text-2xl font-bold mb-6">Create Lease</h1>
+<body style="background: url('{{ asset('images/bg_photo.jpeg') }}') no-repeat center center fixed; background-size: cover;">
 
-<form action="{{ route('leases.store') }}" method="POST" class="space-y-4">
-    @csrf
+<div class="table-section">
 
-    <input type="text"
-           name="tenant_name"
-           placeholder="Tenant Name"
-           class="w-full border p-2 rounded">
+    <div class="page-header">
+        <h1>Create Lease</h1>
+    </div>
 
-    <input type="text"
-           name="property_name"
-           placeholder="Property Name"
-           class="w-full border p-2 rounded">
+    <form action="{{ route('leases.store') }}" method="POST" class="space-y-4">
+        @csrf
 
-    <input type="date"
-           name="start_date"
-           class="w-full border p-2 rounded">
+        <!-- CLIENT NAME -->
+        <input type="text"
+               name="tenant_name"
+               placeholder="Client Name"
+               class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
 
-    <input type="date"
-           name="end_date"
-           class="w-full border p-2 rounded">
+        <!-- PROPERTY -->
+        <input type="text"
+               name="property_name"
+               placeholder="Property"
+               class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
 
-    <select name="status" class="w-full border p-2 rounded">
-        <option value="available">Available</option>
-        <option value="reserved">Reserved</option>
-        <option value="rented">Rented</option>
-    </select>
+        <!-- RENT -->
+        <input type="number"
+               name="rent"
+               placeholder="Rent"
+               class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
 
-    <button class="bg-green-600 text-white px-4 py-2 rounded">
-        Save Lease
-    </button>
-</form>
+        <!-- DEPOSIT -->
+        <input type="number"
+               name="deposit"
+               placeholder="Deposit"
+               class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
+
+        <!-- PAYMENT METHOD -->
+        <select name="payment_method"
+                class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none">
+
+            <option value="" class="text-black">Select Payment Method</option>
+            <option value="Cash" class="text-black">Cash</option>
+            <option value="Bank Transfer" class="text-black">Bank Transfer</option>
+
+        </select>
+
+        <!-- START DATE -->
+        <div class="space-y-1">
+            <label class="text-white text-sm font-medium">Start Date</label>
+
+            <input type="date"
+                   name="start_date"
+                   class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none">
+        </div>
+
+        <!-- END DATE -->
+        <div class="space-y-1">
+            <label class="text-white text-sm font-medium">End Date</label>
+
+            <input type="date"
+                   name="end_date"
+                   class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none">
+        </div>
+
+        <!-- BUTTON -->
+        <button type="submit" class="btn-glass">
+            <span>➕</span> Save Lease
+        </button>
+
+    </form>
+
+</div>
 
 @endsection
