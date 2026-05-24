@@ -9,52 +9,52 @@ class RolesSeeder extends Seeder
 {
     public function run(): void
     {
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'admin@test.com'],
             [
-                'name'     => 'Test Admin',
-                'password' => bcrypt('password'),
+                'name'     => 'Dreamhome Admin',
+                'password' => bcrypt('12345678'),
                 'role'     => 'admin',
             ]
         );
 
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'manager@test.com'],
             [
-                'name'      => 'Test Manager',
-                'password'  => bcrypt('password'),
+                'name'      => 'Jose Reyes Manager',
+                'password'  => bcrypt('12345678'),
                 'role'      => 'manager',
                 'branch_no' => 'B001',
             ]
         );
 
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'supervisor@test.com'],
             [
-                'name'      => 'Test Supervisor',
-                'password'  => bcrypt('password'),
+                'name'      => 'Anna Macaraeg Supervisor',
+                'password'  => bcrypt('12345678'),
                 'role'      => 'supervisor',
                 'branch_no' => 'B001',
                 'staff_id'  => 'ST007',
             ]
         );
 
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'secretary@test.com'],
             [
-                'name'      => 'Test Secretary',
-                'password'  => bcrypt('password'),
+                'name'      => 'Carmen Ilustre Secretary',
+                'password'  => bcrypt('12345678'),
                 'role'      => 'secretary',
                 'branch_no' => 'B001',
                 'staff_id'  => 'ST003',
             ]
         );
 
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'staff@test.com'],
             [
-                'name'      => 'Test Staff',
-                'password'  => bcrypt('password'),
+                'name'      => 'Alicia Magno Staff',
+                'password'  => bcrypt('12345678'),
                 'role'      => 'staff',
                 'branch_no' => 'B001',
                 'staff_id'  => 'ST001',

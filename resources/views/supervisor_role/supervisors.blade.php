@@ -158,7 +158,7 @@
                         <td>{{ $sup->responsibility ?? '—' }}</td>
                         <td>
                             <div class="money-cell">
-                                <span class="money-val">£{{ number_format($sup->staff->salary ?? 0, 0) }}</span>
+                                <span class="money-val">₱{{ number_format($sup->staff->salary ?? 0, 0) }}</span>
                                 <span class="money-per">per year</span>
                             </div>
                         </td>

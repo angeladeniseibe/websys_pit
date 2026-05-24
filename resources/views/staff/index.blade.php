@@ -460,7 +460,7 @@
                                     <span class="null-val">NULL</span>
                                 @endif
                             </td>
-                            <td class="mono">£{{ number_format($member->salary, 0) }}</td>
+                            <td class="mono">₱{{ number_format($member->salary, 0) }}</td>
                             <td class="mono">{{ $member->nin }}</td>
                             <td>{{ $member->date_joined->format('M d, Y') }}</td>
 
@@ -623,7 +623,7 @@ function openDetail(row) {
         ? '<span class="ref-badge">'+d.supervisor+'</span>'
         : '<span class="null-val">NULL</span>';
     document.getElementById('d-joined').textContent = d.joined;
-    document.getElementById('d-salary').textContent = '£' + Number(d.salary).toLocaleString();
+    document.getElementById('d-salary').textContent = '₱' + Number(d.salary).toLocaleString();
 
     // Address
     document.getElementById('d-street').textContent   = d.street   || '—';

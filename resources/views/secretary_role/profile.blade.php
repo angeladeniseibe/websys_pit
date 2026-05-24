@@ -179,7 +179,7 @@
             </div>
             <div class="detail-row">
                 <span class="detail-label">Salary</span>
-                <span class="detail-value">£{{ number_format($secretary->staff->salary ?? 0, 0) }} / year</span>
+                <span class="detail-value">₱{{ number_format($secretary->staff->salary ?? 0, 0) }} / year</span>
             </div>
         </div>
     </div>

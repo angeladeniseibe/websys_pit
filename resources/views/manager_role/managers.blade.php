@@ -209,7 +209,7 @@
                         <td><span class="badge badge-branch">{{ $mgr->staff->branch_no ?? '—' }}</span></td>
                         <td>
                             <div class="money-cell">
-                                <span class="money-val">£{{ number_format($mgr->staff->salary ?? 0, 0) }}</span>
+                                <span class="money-val">₱{{ number_format($mgr->staff->salary ?? 0, 0) }}</span>
                                 <span class="money-per">per year</span>
                             </div>
                         </td>
@@ -217,13 +217,13 @@
                         <td>{{ $mgr->date_start ?? '—' }}</td>
                         <td>
                             <div class="money-cell">
-                                <span class="money-val">£{{ number_format($mgr->car_allowance ?? 0, 0) }}</span>
+                                <span class="money-val">₱{{ number_format($mgr->car_allowance ?? 0, 0) }}</span>
                                 <span class="money-per">per year</span>
                             </div>
                         </td>
                         <td>
                             <div class="money-cell">
-                                <span class="money-val">£{{ number_format($mgr->bonus_payment ?? 0, 0) }}</span>
+                                <span class="money-val">₱{{ number_format($mgr->bonus_payment ?? 0, 0) }}</span>
                                 <span class="money-per">per month</span>
                             </div>
                         </td>

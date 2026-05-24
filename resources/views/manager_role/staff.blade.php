@@ -199,7 +199,7 @@
                         <td>{{ $member->sex ?? '—' }}</td>
                         <td>{{ $member->date_of_birth ?? '—' }}</td>
                         <td>{{ $member->date_joined ?? '—' }}</td>
-                        <td>£{{ number_format($member->salary ?? 0, 0) }}</td>
+                        <td>₱{{ number_format($member->salary ?? 0, 0) }}</td>
                     </tr>
                     @empty
                     <tr>
