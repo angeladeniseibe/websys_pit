@@ -20,8 +20,6 @@
         <!-- NAVIGATION -->
         <nav class="flex flex-col gap-2 mt-6">
 
-            <a href="/dashboard">Dashboard</a>
-
             <a href="{{ route('inspections.index') }}">Inspections</a>
             <a href="{{ route('leases.index') }}">Lease Management</a>
 
