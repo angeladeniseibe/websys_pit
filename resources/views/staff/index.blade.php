@@ -267,6 +267,106 @@
         .d-btn-edit:hover { background: #CBE3F6; }
         .d-btn-del  { background: #FCEBEB; color: #A32D2D; border-color: #F2C6C6; }
         .d-btn-del:hover { background: #F8D4D4; }
+
+        /* ── SUPERVISOR CAPACITY SECTION ─────────────────────────────── */
+        .sup-section { margin-bottom: 18px; }
+
+        .sup-section-head {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .sup-section-title {
+            display: flex; align-items: center; gap: 7px;
+            font-size: 11px; font-weight: 600; color: #72243E;
+            text-transform: uppercase; letter-spacing: 0.06em;
+        }
+
+        .sup-legend {
+            display: flex; align-items: center; gap: 12px; font-size: 10px; color: #999;
+        }
+        .sup-legend-dot {
+            display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px;
+        }
+        .dot-ok      { background: #22c55e; }
+        .dot-warn    { background: #f59e0b; }
+        .dot-over    { background: #ef4444; }
+
+        .sup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 10px;
+        }
+
+        .sup-card {
+            background: #fff;
+            border: 0.5px solid #E8D0CE;
+            border-radius: 10px;
+            padding: 12px 14px;
+            transition: box-shadow 0.15s, border-color 0.15s;
+            cursor: default;
+        }
+        .sup-card:hover { box-shadow: 0 2px 10px rgba(75,21,40,0.08); }
+        .sup-card.sup-warn  { border-color: #FCD34D; background: #FFFBEB; }
+        .sup-card.sup-over  { border-color: #FCA5A5; background: #FFF5F5; }
+
+        .sup-card-top {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+        }
+        .sup-av {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: #F4C0D1; color: #4B1528;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+            font-family: 'DM Serif Display', serif;
+            flex-shrink: 0;
+        }
+        .sup-av.warn { background: #FDE68A; color: #92400E; }
+        .sup-av.over { background: #FCA5A5; color: #7F1D1D; }
+
+        .sup-name  { font-size: 13px; font-weight: 500; color: #3d2030; line-height: 1.2; }
+        .sup-id    { font-family: monospace; font-size: 10px; color: #999; }
+
+        .sup-bar-wrap {
+            display: flex; align-items: center; gap: 8px;
+        }
+        .sup-bar-track {
+            flex: 1; height: 6px; background: #F5E8E6; border-radius: 99px; overflow: hidden;
+        }
+        .sup-bar-fill {
+            height: 100%; border-radius: 99px;
+            transition: width 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .fill-ok   { background: linear-gradient(90deg, #86efac, #22c55e); }
+        .fill-warn { background: linear-gradient(90deg, #fcd34d, #f59e0b); }
+        .fill-over { background: linear-gradient(90deg, #fca5a5, #ef4444); }
+
+        .sup-count {
+            font-size: 11px; font-weight: 600; white-space: nowrap;
+        }
+        .count-ok   { color: #15803d; }
+        .count-warn { color: #b45309; }
+        .count-over { color: #b91c1c; }
+
+        .sup-status-pill {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 9px; font-weight: 700;
+            padding: 2px 8px; border-radius: 99px;
+            margin-top: 7px; letter-spacing: 0.04em;
+        }
+        .pill-ok   { background: #dcfce7; color: #15803d; }
+        .pill-warn { background: #fef3c7; color: #92400E; }
+        .pill-over { background: #fee2e2; color: #991b1b; }
+
+        .sup-filter-btn {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 11px; font-weight: 500; color: #993556;
+            background: none; border: 0.5px solid #C4A8A4; border-radius: 7px;
+            padding: 5px 10px; cursor: pointer; font-family: 'DM Sans', sans-serif;
+            transition: background 0.15s;
+        }
+        .sup-filter-btn:hover { background: #FDF5F3; }
+        .sup-filter-btn.active { background: #FBEAF0; border-color: #993556; color: #4B1528; }
+        /* ────────────────────────────────────────────────────────────── */
     </style>
 </head>
 <body>
@@ -387,6 +487,85 @@
             </div>
         </div>
 
+        {{-- ── SUPERVISOR CAPACITY PANEL ───────────────────────────────── --}}
+        @php
+            $supervisors = collect($staff)->where('position', 'Supervisor');
+            $allMembers  = collect($staff);
+            $LIMIT = 10;
+        @endphp
+
+        @if($supervisors->count())
+        <div class="sup-section">
+            <div class="sup-section-head">
+                <div class="sup-section-title">
+                    <i class="ti ti-sitemap" style="font-size:14px;"></i>
+                    Supervisor Capacity
+                    <span class="badge badge-count">{{ $supervisors->count() }} supervisors</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="sup-legend">
+                        <span><span class="sup-legend-dot dot-ok"></span>OK (≤7)</span>
+                        <span><span class="sup-legend-dot dot-warn"></span>Near limit (8–9)</span>
+                        <span><span class="sup-legend-dot dot-over"></span>Exceeded (≥{{ $LIMIT }})</span>
+                    </div>
+                    <button class="sup-filter-btn" id="btn-show-over" onclick="toggleOverOnly(this)">
+                        <i class="ti ti-alert-triangle" style="font-size:12px;"></i> Show exceeded only
+                    </button>
+                </div>
+            </div>
+
+            <div class="sup-grid" id="sup-grid">
+                @foreach($supervisors as $sup)
+                    @php
+                        $count     = $allMembers->where('supervisor_no', $sup->staff_id)->count();
+                        $pct       = min(($count / $LIMIT) * 100, 100);
+                        $isOver    = $count >= $LIMIT;
+                        $isWarn    = !$isOver && $count >= 8;
+                        $cardClass = $isOver ? 'sup-over' : ($isWarn ? 'sup-warn' : '');
+                        $avClass   = $isOver ? 'over' : ($isWarn ? 'warn' : '');
+                        $fillClass = $isOver ? 'fill-over' : ($isWarn ? 'fill-warn' : 'fill-ok');
+                        $cntClass  = $isOver ? 'count-over' : ($isWarn ? 'count-warn' : 'count-ok');
+                        $pillClass = $isOver ? 'pill-over' : ($isWarn ? 'pill-warn' : 'pill-ok');
+                        $pillLabel = $isOver ? 'EXCEEDED' : ($isWarn ? 'NEAR LIMIT' : 'OK');
+                        $pillIcon  = $isOver ? 'ti-alert-circle' : ($isWarn ? 'ti-alert-triangle' : 'ti-circle-check');
+                    @endphp
+                    <div class="sup-card {{ $cardClass }}"
+                         data-sup-id="{{ $sup->staff_id }}"
+                         data-over="{{ $isOver ? '1' : '0' }}"
+                         onclick="filterBySupervisor('{{ $sup->staff_id }}')">
+                        <div class="sup-card-top">
+                            <div class="sup-av {{ $avClass }}">
+                                {{ strtoupper(substr($sup->first_name, 0, 1)) }}{{ strtoupper(substr($sup->last_name, 0, 1)) }}
+                            </div>
+                            <div>
+                                <div class="sup-name">{{ $sup->first_name }} {{ $sup->last_name }}</div>
+                                <div class="sup-id">{{ $sup->staff_id }} · {{ $sup->branch_no }}</div>
+                            </div>
+                        </div>
+                        <div class="sup-bar-wrap">
+                            <div class="sup-bar-track">
+                                <div class="sup-bar-fill {{ $fillClass }}" style="width: {{ $pct }}%;"></div>
+                            </div>
+                            <span class="sup-count {{ $cntClass }}">{{ $count }}/{{ $LIMIT }}</span>
+                        </div>
+                        <div>
+                            <span class="sup-status-pill {{ $pillClass }}">
+                                <i class="ti {{ $pillIcon }}" style="font-size:10px;"></i>
+                                {{ $pillLabel }}
+                            </span>
+                            @if($isOver)
+                            <span class="sup-status-pill pill-over" style="margin-left:4px;">
+                                +{{ $count - $LIMIT }} over limit
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+        {{-- ────────────────────────────────────────────────────────────── --}}
+
         <div class="search-row">
             <div class="search-wrap">
                 <i class="ti ti-search search-icon"></i>
@@ -398,9 +577,15 @@
             <div class="card-head">
                 <div class="card-label">
                     <i class="ti ti-table" style="font-size:14px;"></i>
-                    staff table — supervisor_no shown
+                    <span id="tbl-label">staff table — supervisor_no shown</span>
                 </div>
-                <span class="badge badge-count" id="rec-count">{{ count($staff) }} records</span>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span id="active-filter-badge" style="display:none;">
+                        <span class="badge badge-manager" id="active-filter-text"></span>
+                        <button onclick="clearSupFilter()" style="background:none;border:none;cursor:pointer;color:#993556;font-size:12px;padding:0 2px;" title="Clear filter">×</button>
+                    </span>
+                    <span class="badge badge-count" id="rec-count">{{ count($staff) }} records</span>
+                </div>
             </div>
             <div class="tbl-wrap">
                 <table id="staff-tbl">
@@ -592,11 +777,69 @@
 
 <script>
 var _currentRow = null;
+var _activeSupFilter = null;
+var _showOverOnly = false;
 
 function posBadge(pos) {
     var map = { Manager:'badge-manager', Supervisor:'badge-sup', Secretary:'badge-sec', Staff:'badge-staff' };
     return '<span class="badge '+(map[pos]||'badge-staff')+'">'+pos+'</span>';
 }
+
+// ── Supervisor capacity interactions ─────────────────────────────────────────
+function filterBySupervisor(supId) {
+    _activeSupFilter = supId;
+    _showOverOnly = false;
+    document.getElementById('btn-show-over').classList.remove('active');
+
+    var rows = document.querySelectorAll('#staff-tbl tbody tr');
+    var count = 0;
+    rows.forEach(function(r) {
+        var show = r.dataset.supervisor === supId;
+        r.style.display = show ? '' : 'none';
+        if (show) count++;
+    });
+    updateCount(count);
+
+    // Highlight selected supervisor card
+    document.querySelectorAll('.sup-card').forEach(function(c) {
+        c.style.outline = c.dataset.supId === supId ? '2px solid #993556' : 'none';
+    });
+
+    // Show active filter badge
+    var rows2 = document.querySelectorAll('#staff-tbl tbody tr');
+    var supName = '';
+    rows2.forEach(function(r){ if (r.dataset.id === supId) supName = r.dataset.first + ' ' + r.dataset.last; });
+    document.getElementById('active-filter-text').textContent = 'Supervisor: ' + supId + (supName ? ' · ' + supName : '');
+    document.getElementById('active-filter-badge').style.display = 'inline-flex';
+    document.getElementById('tbl-label').textContent = 'staff under supervisor ' + supId;
+}
+
+function clearSupFilter() {
+    _activeSupFilter = null;
+    document.querySelectorAll('#staff-tbl tbody tr').forEach(function(r){ r.style.display = ''; });
+    document.querySelectorAll('.sup-card').forEach(function(c){ c.style.outline = 'none'; });
+    document.getElementById('active-filter-badge').style.display = 'none';
+    document.getElementById('tbl-label').textContent = 'staff table — supervisor_no shown';
+    updateCount(document.querySelectorAll('#staff-tbl tbody tr').length);
+}
+
+function toggleOverOnly(btn) {
+    _showOverOnly = !_showOverOnly;
+    btn.classList.toggle('active', _showOverOnly);
+    clearSupFilter();
+
+    if (_showOverOnly) {
+        var cards = document.querySelectorAll('.sup-card');
+        cards.forEach(function(c){ c.style.display = c.dataset.over === '1' ? '' : 'none'; });
+    } else {
+        document.querySelectorAll('.sup-card').forEach(function(c){ c.style.display = ''; });
+    }
+}
+
+function updateCount(n) {
+    document.getElementById('rec-count').textContent = n + ' record' + (n !== 1 ? 's' : '');
+}
+// ─────────────────────────────────────────────────────────────────────────────
 
 function openDetail(row) {
     _currentRow = row;
@@ -679,6 +922,7 @@ document.getElementById('delete-modal').addEventListener('click', function(e) {
 });
 
 function filterPos(val) {
+    clearSupFilter();
     var rows = document.querySelectorAll('#staff-tbl tbody tr');
     var count = 0;
     rows.forEach(function(r) {
@@ -686,10 +930,11 @@ function filterPos(val) {
         r.style.display = show ? '' : 'none';
         if (show) count++;
     });
-    document.getElementById('rec-count').textContent = count + ' record' + (count !== 1 ? 's' : '');
+    updateCount(count);
 }
 
 function searchTable(query) {
+    clearSupFilter();
     var q = query.toLowerCase().trim();
     var rows = document.querySelectorAll('#staff-tbl tbody tr');
     var count = 0;
@@ -698,7 +943,7 @@ function searchTable(query) {
         r.style.display = show ? '' : 'none';
         if (show) count++;
     });
-    document.getElementById('rec-count').textContent = count + ' record' + (count !== 1 ? 's' : '');
+    updateCount(count);
 }
 </script>
 
