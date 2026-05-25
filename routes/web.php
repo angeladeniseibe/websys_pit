@@ -7,6 +7,7 @@ use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\RegistrationController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,8 +22,7 @@ Route::get('/register', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
-
+})->middleware(['auth'])->name('dashboard');
 /*
 |--------------------------------------------------------------------------
 | Inspection & Lease Routes
@@ -73,5 +73,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
 });
+
+
+Route::get('/registrations', [RegistrationController::class, 'index'])
+    ->name('registrations.index');
+
+Route::get('/registrations/create', [RegistrationController::class, 'create'])->name('registrations.create');
+Route::post('/registrations', [RegistrationController::class, 'store'])->name('registrations.store');
+
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
 
 require __DIR__.'/auth.php';
