@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Staff;
 use App\Models\Branch;
 
-class StaffDashboardController extends Controller
+class SecretaryDashboardController extends Controller
 {
     public function index()
     {

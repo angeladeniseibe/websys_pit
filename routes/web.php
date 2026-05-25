@@ -11,7 +11,6 @@ use App\Http\Controllers\ManagerDashboardController;
 use App\Http\Controllers\SupervisorDashboardController;
 use App\Http\Controllers\SecretaryDashboardController;
 use App\Http\Controllers\StaffDashboardController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InspectionController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\ClientController;
@@ -124,9 +123,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile',   [StaffDashboardController::class, 'profile'])->name('profile');
 });
 });
-
-});
-
 
 Route::get('/registrations', [RegistrationController::class, 'index'])
     ->name('registrations.index');
