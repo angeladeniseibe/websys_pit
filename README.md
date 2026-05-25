@@ -185,6 +185,9 @@ Railway PostgreSQL
 - `vw_supervisors_per_branch` – Supervisors per branch
 - `vw_secretary_details` – Secretary with typing speed
 - `vw_branch_summary` – Branch headcount by position
+-`view_client_registrations` – Displays client information with their registration details
+-`view_branch_registration_count` – Shows total number of registrations per branch
+-`view_high_budget_clients` – Lists clients with high rental budget (≥ 10,000)
 
 ### Triggers
 
@@ -196,16 +199,23 @@ Railway PostgreSQL
 | `trg_4_one_manager_per_branch`| Only one Manager allowed per branch                  |
 | `trg_5_supervisor_size_insert/delete` | Supervisor group must have 5–10 members      |
 | `trg_6_supervisor_manager_role` | manager_no must reference a valid Manager in same branch |
+| ` trg_check_duplicate_phone`     |Prevents duplicate phone numbers in the Client table|
 
 ### Stored Procedures
 - `sp_add_staff` – Add a new staff member
 - `sp_transfer_staff` – Transfer staff to another branch
 - `sp_update_manager_compensation` – Update car allowance and bonus
+- `add_client` – Inserts a new client record
+- `add_registration` – Adds a new registration for a client
 
 ### Functions
 - `fn_branch_staff_count(branch_no)` – Count staff in a branch
 - `fn_supervisor_group_size(supervisor_id)` – Count staff under a supervisor
 - `fn_manager_total_compensation(staff_id)` – Calculate total annual pay of a manager
+-`count_registrations_by_branch(branch_no)` – Returns total registrations per branch
+-`total_clients()` – Returns total number of clients
+-`get_client_fullname(client_id)` – Returns full name of a client
+-`avg_max_rent(branch_no)` – Returns average preferred rent per branch
 
 ### Transaction & Concurrency Control
 - `BEGIN` / `COMMIT` / `ROLLBACK` blocks
