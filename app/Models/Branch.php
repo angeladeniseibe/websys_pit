@@ -50,4 +50,9 @@ class Branch extends Model
     {
         return $this->staff()->count();
     }
+
+    public function staffByBranch()
+    {
+    return $this->staff()->orderBy('last_name')->get();
+    }
 }

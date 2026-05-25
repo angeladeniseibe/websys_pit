@@ -167,17 +167,30 @@
     </div>
 
     {{-- Navigation --}}
-    <div class="nav-section-title">Quick Access</div>
-    <div class="nav-grid">
-        <a href="{{ route('staff.profile') }}" class="nav-card">
-            <div class="nav-card-icon"><i class="ti ti-user"></i></div>
-            <div>
-                <div class="nav-card-title">My Profile</div>
-                <div class="nav-card-sub">View your personal staff details</div>
-            </div>
-            <i class="ti ti-chevron-right nav-card-arrow"></i>
-        </a>
-    </div>
+<div class="nav-section-title">Quick Access</div>
+<div class="nav-grid">
+
+    {{-- NEW: Registrations --}}
+    <a href="{{ route('registrations.index') }}" class="nav-card">
+        <div class="nav-card-icon"><i class="ti ti-clipboard-list"></i></div>
+        <div>
+            <div class="nav-card-title">Registrations</div>
+            <div class="nav-card-sub">View client registration records</div>
+        </div>
+        <i class="ti ti-chevron-right nav-card-arrow"></i>
+    </a>
+
+    {{-- EXISTING: Profile --}}
+    <a href="{{ route('staff.profile') }}" class="nav-card">
+        <div class="nav-card-icon"><i class="ti ti-user"></i></div>
+        <div>
+            <div class="nav-card-title">My Profile</div>
+            <div class="nav-card-sub">View your personal staff details</div>
+        </div>
+        <i class="ti ti-chevron-right nav-card-arrow"></i>
+    </a>
+
+</div>
 
 </div>
 

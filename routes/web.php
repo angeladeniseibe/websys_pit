@@ -17,6 +17,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\RegistrationController;
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -47,24 +48,17 @@ Route::resource('leases', LeaseController::class);
 |--------------------------------------------------------------------------
 */
 
-Route::get('/registrations', [RegistrationController::class, 'index'])
-    ->name('registrations.index');
-
-Route::get('/registrations/create', [RegistrationController::class, 'create'])
-    ->name('registrations.create');
-
-Route::post('/registrations', [RegistrationController::class, 'store'])
-    ->name('registrations.store');
-
+Route::resource('registrations', RegistrationController::class);
+Route::get('/get-staff/{branch_no}', [StaffController::class, 'getStaffByBranch']);
 /*
 |--------------------------------------------------------------------------
 | Client Routes
 |--------------------------------------------------------------------------
 */
-
-Route::get('/clients', [ClientController::class, 'index'])
-    ->name('clients.index');
-
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+Route::get('/my-profile', [ClientController::class, 'myProfile'])
+    ->middleware('auth')
+    ->name('clients.my-profile');
 /*
 |--------------------------------------------------------------------------
 | Profile Routes
@@ -123,12 +117,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile',   [StaffDashboardController::class, 'profile'])->name('profile');
 });
 });
-
-Route::get('/registrations', [RegistrationController::class, 'index'])
-    ->name('registrations.index');
-
-Route::get('/registrations/create', [RegistrationController::class, 'create'])->name('registrations.create');
-Route::post('/registrations', [RegistrationController::class, 'store'])->name('registrations.store');
 
 Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
 

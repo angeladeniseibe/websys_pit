@@ -95,6 +95,15 @@ class StaffController extends Controller
             ->with('success', 'Staff member updated successfully.');
     }
 
+
+    public function getStaffByBranch($branch_no)
+    {
+        $staff = Staff::where('branch_no', $branch_no)
+                    ->orderBy('last_name')
+                    ->get();
+
+        return response()->json($staff);
+    }
     public function destroy(Staff $staff)
     {
         $staff->delete();
