@@ -1,58 +1,260 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# DreamHome – Online Rental Property Management System
+**IT212 – Web Systems and Technology + Database Systems | Final Project**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based web application that allows clients to view and avail rental properties online, integrated with a PostgreSQL database following the DreamHome Case Study across 10 Philippine branches.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Team Members & Module Assignments
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| Module | Assigned Developer     |
+|--------|------------------------|
+| 1      | Jo Nathaniel Lucero    |
+| 2      | Vincent S. Calimutan   |
+| 3      | Angela Denise Ibe      |
+| 4      | Aldren O. Restauro     |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> Each member is responsible for developing, committing, and explaining their own module during the defense.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Repository Link
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+🔗 [https://github.com/your-project](https://github.com/your-project)
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## Deployed System
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+🌐 [https://your-project-url.railway.app](https://your-project-url.railway.app)
 
+> Hosted on **Railway** (PostgreSQL + Laravel)
+
+---
+
+## Tech Stack
+
+| Layer      | Technology              |
+|------------|-------------------------|
+| Backend    | Laravel (PHP)           |
+| Database   | PostgreSQL (Railway)    |
+| Frontend   | Bootstrap / Tailwind CSS |
+| Deployment | Railway                 |
+| Version Control | GitHub / GitLab   |
+
+---
+
+## User Roles & Access
+
+| Role           | Access                                                        |
+|----------------|---------------------------------------------------------------|
+| **Admin**      | Full CRUD – manage all records across all modules             |
+| **Manager**    | View branch and staff records under their branch              |
+| **Supervisor** | View and manage their assigned staff group                    |
+| **Secretary**  | Limited access to records relevant to their tasks             |
+| **Staff**      | View-only access to their own profile                         |
+
+> Admin is the only role with full CRUD permissions.
+
+---
+
+## Setup Instructions
+
+### Requirements
+- PHP 8.1+
+- Composer
+- Node.js & npm
+- PostgreSQL 14+
+- Railway account (for deployment)
+
+### Installation
+
+**1. Clone the repository**
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/your-project
+cd your-project-folder
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+**2. Install dependencies**
+```bash
+composer install
+npm install
+```
 
-## Contributing
+**3. Configure environment**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**4. Update `.env` with your database credentials**
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=dreamhome
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+```
 
-## Code of Conduct
+**5. Run migrations**
+```bash
+php artisan migrate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**6. Start the development server**
+```bash
+npm run dev
+php artisan serve
+```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Default Login
 
-## License
+```txt
+Admin Account
+Email:    admin@dreamhome.com
+Password: password
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## Database Information
+
+### Platform
+Railway PostgreSQL
+
+### Main Tables
+
+| Table          | Purpose                              |
+|----------------|--------------------------------------|
+| `users`        | Authentication and role management   |
+| `branch`       | 10 DreamHome branches (Philippines)  |
+| `Staff`        | All staff records per branch         |
+| `Manager`      | Manager subtype (allowance, bonus)   |
+| `Supervisor`   | Supervisor subtype (manager link)    |
+| `Secretary`    | Secretary subtype (typing speed)     |
+| `Next_of_kin`  | Emergency contact per staff          |
+
+### Branches Covered
+
+| Branch | City                  |
+|--------|-----------------------|
+| B001   | Cagayan de Oro        |
+| B002   | Davao City            |
+| B003   | Zamboanga City        |
+| B004   | Iligan City           |
+| B005   | General Santos        |
+| B006   | Butuan City           |
+| B007   | Cagayan de Oro (Cogon)|
+| B008   | Cebu City             |
+| B009   | Iloilo City           |
+| B010   | Bacolod City          |
+
+---
+
+## Database Features (Module 3 – Angela Denise Ibe)
+
+### Views
+- `vw_staff_branch` – Staff with branch details
+- `vw_manager_compensation` – Salary + allowance + bonus
+- `vw_supervisor_group` – Supervisor with group size count
+- `vw_supervisors_per_branch` – Supervisors per branch
+- `vw_secretary_details` – Secretary with typing speed
+- `vw_branch_summary` – Branch headcount by position
+
+### Triggers
+
+| Trigger                        | Description                                          |
+|-------------------------------|------------------------------------------------------|
+| `trg_1_mandatory_reporting`   | Staff/Secretary must be assigned to a supervisor     |
+| `trg_2_reporting_roles_check` | Only Supervisors can be assigned as supervisor_no    |
+| `trg_3_supervisor_same_branch`| Supervisor must be in the same branch as staff       |
+| `trg_4_one_manager_per_branch`| Only one Manager allowed per branch                  |
+| `trg_5_supervisor_size_insert/delete` | Supervisor group must have 5–10 members      |
+| `trg_6_supervisor_manager_role` | manager_no must reference a valid Manager in same branch |
+
+### Stored Procedures
+- `sp_add_staff` – Add a new staff member
+- `sp_transfer_staff` – Transfer staff to another branch
+- `sp_update_manager_compensation` – Update car allowance and bonus
+
+### Functions
+- `fn_branch_staff_count(branch_no)` – Count staff in a branch
+- `fn_supervisor_group_size(supervisor_id)` – Count staff under a supervisor
+- `fn_manager_total_compensation(staff_id)` – Calculate total annual pay of a manager
+
+### Transaction & Concurrency Control
+- `BEGIN` / `COMMIT` / `ROLLBACK` blocks
+- `SAVEPOINT` with rollback examples
+- `SELECT FOR UPDATE` (pessimistic locking)
+- Isolation levels: `REPEATABLE READ` and `SERIALIZABLE`
+- Deadlock prevention via consistent row ordering
+
+### Query Optimization
+- Indexes on `branch_no`, `supervisor_no`, `position`, `staff_id`, `manager_no`
+- `EXPLAIN ANALYZE` on key views and queries
+
+---
+
+## Repository Structure
+
+```
+project-system/
+├── app/
+├── database/
+├── resources/views/
+├── routes/
+├── public/
+├── modules/
+└── README.md
+```
+
+---
+
+## Branching Strategy
+
+| Branch                 | Purpose                          |
+|------------------------|----------------------------------|
+| `main`                 | Final stable system              |
+| `dev`                  | Integration and testing          |
+| `feature-module-1`     | Jo Nathaniel – Module 1          |
+| `feature-module-2`     | Vincent – Module 2               |
+| `feature-module-3`     | Angela – Staff & Branch (DB)     |
+| `feature-module-4`     | Aldren – Module 4                |
+
+---
+
+## Deployment (Railway)
+
+1. Create a new Railway project
+2. Add a **PostgreSQL** plugin
+3. Copy the Railway connection string into your environment variables:
+```env
+DB_CONNECTION=pgsql
+DB_HOST=<railway-host>
+DB_PORT=5432
+DB_DATABASE=<railway-db>
+DB_USERNAME=<railway-user>
+DB_PASSWORD=<railway-password>
+```
+4. Run migrations via Railway console or connected client
+5. Deploy the Laravel source code via GitHub integration
+
+---
+
+## Screenshots
+
+> Drag and drop images into the GitHub README editor to upload them automatically.
+
+
+
+---
+
+## Notes
+
+- `manager_no` was moved from the `Staff` table to the `Supervisor` subtype to follow proper normalization.
+- Supervisor group size is enforced at a minimum of 5 and maximum of 10 members via trigger.
+- All foreign key constraints on subtypes use `ON DELETE CASCADE`.
+- Admin account must be seeded manually or via `php artisan db:seed` before first login.
