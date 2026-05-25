@@ -5,15 +5,24 @@ use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\DashboardController;
 
-// 1. YOUR MODULES (These connect to your Controllers)
-Route::get('/owners', [OwnerController::class, 'index'])->name('owners.index');
-Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
+// --- Dashboard ---
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-// 2. TEAM MODULES (These use closures so the app doesn't crash while they are unfinished)
-Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
+// --- Property Module ---
+Route::prefix('properties')->group(function () {
+    Route::get('/', [PropertyController::class, 'index'])->name('properties.index');
+    Route::get('/create', [PropertyController::class, 'create'])->name('properties.create');
+    Route::post('/', [PropertyController::class, 'store'])->name('properties.store');
+});
+
+// --- Owner Module ---
+Route::prefix('owners')->group(function () {
+    Route::get('/', [OwnerController::class, 'index'])->name('owners.index');
+    Route::get('/create', [OwnerController::class, 'create'])->name('owners.create');
+    Route::post('/', [OwnerController::class, 'store'])->name('owners.store');
+});
+
+// --- Placeholder Modules (Team Modules) ---
 Route::get('/branches', function () { return "Branch module coming soon"; })->name('branches.index');
 Route::get('/staff', function () { return "Staff module coming soon"; })->name('staff.index');
 Route::get('/next-of-kin', function () { return "Next of Kin module coming soon"; })->name('next-of-kin.index');
-// If it says 'use App\Http\Controllers\DashboardController' at the top:
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/owners', [OwnerController::class, 'index'])->name('owners.index');
