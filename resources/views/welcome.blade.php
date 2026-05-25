@@ -14,45 +14,70 @@
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-black">
 
-<!-- HERO SECTION -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+<!-- HERO -->
+<section class="relative min-h-screen overflow-hidden">
 
-    <!-- BACKGROUND IMAGE -->
+    <!-- BACKGROUND -->
     <div class="absolute inset-0">
-        <img src="/images/bg_photo.jpeg"
+        <img src="/images/welcome_bg-photo.jpeg"
              class="w-full h-full object-cover">
     </div>
 
-    <!-- DARK OVERLAY -->
-    <div class="absolute inset-0 bg-black/55"></div>
+    <!-- OVERLAY -->
+    <div class="absolute inset-0 bg-black/70"></div>
 
-    <!-- CONTENT -->
-    <div class="relative z-10 text-center px-6 max-w-3xl">
+    <!-- NAVBAR -->
+    <nav class="relative z-20 flex justify-between items-center px-10 py-6">
 
-        <!-- LOGO / TITLE -->
-        <h1 class="text-6xl md:text-7xl font-bold text-white mb-6">
-            Dream Home
+        <h1 class="text-3xl font-bold text-white">
+            Dream<span class="text-[#d4af37]">Home</span>
         </h1>
 
-        <!-- SUBTITLE -->
-        <p class="text-lg md:text-2xl text-gray-200 mb-10 leading-relaxed">
-            Your modern real estate management system for properties,
-            branches, staff, and clients.
-        </p>
-
-        <!-- BUTTONS -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div class="space-x-4">
 
             <a href="{{ route('login') }}"
-               class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white rounded-xl text-15 font-medium transition duration-300">
+               class="text-white hover:text-[#d4af37] transition">
                 Login
             </a>
 
             <a href="{{ route('register') }}"
-               class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white rounded-xl text-15 font-medium transition duration-300">
+               class="bg-[#d4af37] px-5 py-2 rounded-lg
+               text-white hover:bg-[#c49b1e] transition">
                 Register
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="relative z-10 flex items-center h-[80vh] px-10">
+
+        <div class="max-w-2xl">
+
+            <p class="uppercase tracking-[6px]
+            text-[#d4af37] mb-4">
+                Modern Real Estate
+            </p>
+
+            <h1 class="text-6xl md:text-8xl
+            font-bold text-white leading-tight mb-6">
+                Find Your
+                Dream Home
+            </h1>
+
+            <p class="text-gray-300 text-xl mb-10 leading-relaxed">
+                Smart property management system for rentals,
+                branches, clients, and staff operations.
+            </p>
+
+            <a href="{{ route('login') }}"
+               class="bg-[#d4af37] hover:bg-[#c49b1e]
+               px-8 py-4 rounded-xl text-white
+               font-semibold transition">
+                Get Started
             </a>
 
         </div>
@@ -62,4 +87,3 @@
 </section>
 
 </body>
-</html>
