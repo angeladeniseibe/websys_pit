@@ -3,27 +3,23 @@
 @section('content')
 <body style="background: url('{{ asset('images/bg_photo.jpeg') }}') no-repeat center center fixed; background-size: cover;">
 
-
 <div class="max-w-7xl mx-auto px-8 py-12">
 
     <!-- HEADER -->
-  <!-- HEADER (MODERN DASHBOARD STYLE) -->
-<div class="mb-10">
+    <div class="mb-10">
+        <div class="bg-gray-900/80 backdrop-blur-md border border-gray-700
+                    rounded-2xl px-8 py-8 shadow-lg text-center">
 
-    <div class="bg-gray-900/80 backdrop-blur-md border border-gray-700
-                rounded-2xl px-8 py-8 shadow-lg text-center">
+            <h1 class="text-4xl font-extrabold text-white tracking-wide drop-shadow">
+                Client Registration List
+            </h1>
 
-        <h1 class="text-4xl font-extrabold text-white tracking-wide drop-shadow">
-            Client Registration List
-        </h1>
+            <p class="text-gray-300 mt-2 text-sm md:text-base">
+                Manage and track all client registrations in one place
+            </p>
 
-        <p class="text-gray-300 mt-2 text-sm md:text-base">
-            Manage and track all client registrations in one place
-        </p>
-
+        </div>
     </div>
-
-</div>
 
     <!-- SEARCH + ACTIONS -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-8">
@@ -46,11 +42,13 @@
         </form>
 
         <div class="flex gap-4">
+
             <a href="{{ route('staff.dashboard') }}"
-            class="px-5 py-3 bg-gray-700 text-white rounded-xl
-                    hover:bg-gray-800 transition font-semibold shadow-md">
+               class="px-5 py-3 bg-gray-700 text-white rounded-xl
+                      hover:bg-gray-800 transition font-semibold shadow-md">
                 ← Back to Dashboard
             </a>
+
             <a href="{{ route('registrations.create') }}"
                class="px-5 py-3 bg-blue-600 text-white rounded-xl
                       hover:bg-blue-700 transition font-semibold shadow-md">
@@ -112,7 +110,6 @@
                             {{ $reg->client->phone ?? 'N/A' }}
                         </td>
 
-                        <!-- UPDATED: NO BG / PLAIN TEXT -->
                         <td class="px-6 py-5 text-gray-700 font-medium">
                             {{ $reg->preferred_property_type ?? '—' }}
                         </td>
@@ -138,7 +135,9 @@
                                 Edit
                             </a>
 
-                            @if(auth()->user()->role === 'admin')
+                            {{-- ONLY ADMIN CAN SEE DELETE --}}
+                            @if(auth()->user() && auth()->user()->role === 'admin')
+
                                 <form action="{{ route('registrations.destroy', $reg->registration_id) }}"
                                       method="POST"
                                       onsubmit="return confirm('Delete this registration?')">
@@ -151,7 +150,9 @@
                                                    hover:bg-red-800 font-semibold">
                                         Delete
                                     </button>
+
                                 </form>
+
                             @endif
 
                         </td>
@@ -172,12 +173,15 @@
 
         </div>
     </div>
-<!-- PAGINATION -->
-<div class="mt-6 flex justify-center">
-    <div class="bg-white border-2 border-gray-900 rounded-xl px-6 py-3 shadow-md">
-        {{ $registrations->withQueryString()->links() }}
+
+    <!-- PAGINATION -->
+    <div class="mt-6 flex justify-center">
+        <div class="bg-white border-2 border-gray-900 rounded-xl px-6 py-3 shadow-md">
+            {{ $registrations->withQueryString()->links() }}
+        </div>
     </div>
+
 </div>
-</div>
-</div>
+
+</body>
 @endsection
