@@ -55,10 +55,10 @@ Route::get('/get-staff/{branch_no}', [StaffController::class, 'getStaffByBranch'
 | Client Routes
 |--------------------------------------------------------------------------
 */
-
-Route::get('/clients', [ClientController::class, 'index'])
-    ->name('clients.index');
-
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+Route::get('/my-profile', [ClientController::class, 'myProfile'])
+    ->middleware('auth')
+    ->name('clients.my-profile');
 /*
 |--------------------------------------------------------------------------
 | Profile Routes

@@ -54,6 +54,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Client::class);
     }
+    public function isClient(): bool
+{
+    return $this->role === 'client';
+}
 }
 // 👆 nothing goes after this closing brace
   

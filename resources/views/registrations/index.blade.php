@@ -46,7 +46,11 @@
         </form>
 
         <div class="flex gap-4">
-
+            <a href="{{ route('staff.dashboard') }}"
+            class="px-5 py-3 bg-gray-700 text-white rounded-xl
+                    hover:bg-gray-800 transition font-semibold shadow-md">
+                ← Back to Dashboard
+            </a>
             <a href="{{ route('registrations.create') }}"
                class="px-5 py-3 bg-blue-600 text-white rounded-xl
                       hover:bg-blue-700 transition font-semibold shadow-md">

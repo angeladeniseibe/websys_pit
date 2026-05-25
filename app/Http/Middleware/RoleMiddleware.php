@@ -11,15 +11,21 @@ class RoleMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  Closure(Request): (Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-// app/Http/Middleware/RoleMiddleware.php
-public function handle(Request $request, Closure $next, ...$roles)
-{
-    if (!in_array(auth()->user()->role, $roles)) {
-        abort(403, 'Unauthorized');
-    }
-    return $next($request);
-}
+    public function handle(Request $request, Closure $next, ...$roles): Response
+    {
+        // ❌ Block if not logged in
+        if (!auth()->check()) {
+            abort(401, 'Unauthenticated');
+        }
 
+        // ❌ Block if role not allowed
+        if (!in_array(auth()->user()->role, $roles)) {
+            abort(403, 'Unauthorized');
+        }
+
+        return $next($request);
+    }
 }

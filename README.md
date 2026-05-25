@@ -29,7 +29,7 @@ A project that shows and deploy a Website where clients can avail rental propert
 
 ## Repository Link
 
-https://github.com/your-project
+https://github.com/angeladeniseibe/websys_pit.git
 
 ---
 
@@ -63,10 +63,10 @@ DB_PASSWORD=
 
 ---
 
-## Run Migration
+## Run Migration and seeders
 
 ```bash
-php artisan migrate
+php artisan migrate --seed
 ```
 
 ---
@@ -79,15 +79,34 @@ php artisan serve
 ```
 
 ---
+ 
 
+         
 ## Default Login
 
 Admin Account
+email = admin@test.com
+password  = 12345678
 
-```txt
-email:
-password:
-```
+Manager Account
+email = manager@test.com
+password  = 12345678
+
+Staff Account
+email = staff@test.com
+password  = '12345678'
+
+supervisor Account
+email = supervisor@test.com
+password  =12345678
+
+secretary Account
+email = secretary@test.com
+password  =12345678
+
+Staff Account
+email = staff@test.com
+password  =12345678
 
 ---
 
@@ -102,7 +121,6 @@ Railway PostgreSQL
 | Table     	| Purpose 			            |
 |-----------	|------------------------------	|                   
 | users	    	| authentication 	        	|
-| products  	| inventory 			        |
 | client	    | basic data for client		    |
 | registration	|record for client registration	|
 | sales     	| transactions	 		        |
@@ -142,7 +160,13 @@ Railway
 ## Screenshots
 
 Required screenshots:
-- Login Page
-- Dashboard
+- Login Page ![alt text](login_page.png)
+- Dashboard ![alt text](dashboard.png)
 - CRUD Module
+(Client Registration)
+Create ![alt text](registration_create.png)
+Read and Delete ![alt text](read&delete.png)
+Update ![alt text](update_registration.png)
+
+
 - PostgreSQL Database Tables
