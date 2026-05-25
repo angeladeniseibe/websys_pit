@@ -4,7 +4,7 @@ README.md
 -- DREAH HOME --
 
 ## Project Description
-|A project that shows and deploy a Website where clients can avail rental properties online|
+A project that shows and deploy a Website where clients can avail rental properties through online
 
 
 ## Team Members
