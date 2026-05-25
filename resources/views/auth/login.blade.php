@@ -1,47 +1,98 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Dream Home</title>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="h-screen overflow-hidden">
+
+<section class="h-screen flex items-center justify-center relative">
+
+    <!-- BACKGROUND -->
+    <div class="absolute inset-0">
+        <img src="/images/welcome_bg-photo.jpeg"
+             class="w-full h-full object-cover">
+    </div>
+
+    <!-- OVERLAY -->
+    <div class="absolute inset-0 bg-black/75"></div>
+
+    <!-- CARD -->
+    <div class="relative z-10
+        bg-white/10 backdrop-blur-xl
+        border border-white/20
+        rounded-2xl
+        shadow-2xl
+        p-6
+        w-full max-w-sm">
+
+        <!-- TITLE -->
+        <div class="text-center mb-6">
+
+            <p class="uppercase tracking-[5px] text-[#d4af37] text-xs mb-2">
+                Dream Home
+            </p>
+
+            <h1 class="text-3xl font-bold text-white">
+                Welcome Back
+            </h1>
+
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <!-- FORM -->
+        <form method="POST" action="{{ route('login') }}">
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            @csrf
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div class="space-y-4">
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+                <input type="email" name="email" placeholder="Email" required
+                    class="w-full px-4 py-2.5 rounded-xl
+                    bg-white/10 border border-white/20 text-white
+                    placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#d4af37]">
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+                <input type="password" name="password" placeholder="Password" required
+                    class="w-full px-4 py-2.5 rounded-xl
+                    bg-white/10 border border-white/20 text-white
+                    placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#d4af37]">
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+            </div>
+
+            <button type="submit"
+                class="w-full mt-5 bg-[#d4af37] hover:bg-[#c49b1e]
+                text-white py-2.5 rounded-xl font-semibold transition">
+
+                Login
+
+            </button>
+
+        </form>
+
+        <!-- REGISTER LINK -->
+        <p class="text-center text-gray-300 mt-5 text-sm">
+
+            Don't have an account?
+
+            <a href="{{ route('register') }}"
+               class="text-[#d4af37] hover:underline">
+                Register
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+</body>

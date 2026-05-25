@@ -1,47 +1,146 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OwnerController;
-use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Middleware\EnsureUserIsAdmin;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\NextOfKinController;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\SupervisorController;
+use App\Http\Controllers\SecretaryController;
+use App\Http\Controllers\ManagerDashboardController;
+use App\Http\Controllers\SupervisorDashboardController;
+use App\Http\Controllers\SecretaryDashboardController;
+use App\Http\Controllers\StaffDashboardController;
+use App\Http\Controllers\InspectionController;
+use App\Http\Controllers\LeaseController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\RegistrationController;
 
-// --- Dashboard ---
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-// --- Public / Client Accessible Routes (Read-Only) ---
-Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
-Route::get('/owners', [OwnerController::class, 'index'])->name('owners.index');
-
-// --- Protected Administrative Routes (Write Actions for Admins Only) ---
-Route::middleware([EnsureUserIsAdmin::class])->group(function () {
-
-    // Property Management Actions
-    Route::get('/properties/create', [PropertyController::class, 'create'])->name('properties.create');
-    Route::post('/properties', [PropertyController::class, 'store'])->name('properties.store');
-    Route::get('/properties/{id}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
-    Route::put('/properties/{id}', [PropertyController::class, 'update'])->name('properties.update');
-    Route::delete('/properties/{id}', [PropertyController::class, 'destroy'])->name('properties.destroy');
-
-    // Owner Management Actions
-    Route::get('/owners/create', [OwnerController::class, 'create'])->name('owners.create');
-    Route::post('/owners', [OwnerController::class, 'store'])->name('owners.store');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-// --- Presentation Simulation Switchers ---
-Route::get('/simulate/client', function () {
-    session(['user_role' => 'client']);
-    return redirect()->back()->with('success', 'Switched session to Read-Only Client mode.');
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+/*
+|--------------------------------------------------------------------------
+| Inspection & Lease Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('inspections', InspectionController::class);
+Route::resource('leases', LeaseController::class);
+
+/*
+|--------------------------------------------------------------------------
+| Registration Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/registrations', [RegistrationController::class, 'index'])
+    ->name('registrations.index');
+
+Route::get('/registrations/create', [RegistrationController::class, 'create'])
+    ->name('registrations.create');
+
+Route::post('/registrations', [RegistrationController::class, 'store'])
+    ->name('registrations.store');
+
+/*
+|--------------------------------------------------------------------------
+| Client Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/clients', [ClientController::class, 'index'])
+    ->name('clients.index');
+
+/*
+|--------------------------------------------------------------------------
+| Profile Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
+
+    // BRANCH
+    Route::resource('branches', BranchController::class);
+
+    // STAFF
+    Route::resource('staff', StaffController::class);
+    Route::resource('next-of-kin', NextOfKinController::class);
+    Route::resource('managers',    ManagerController::class);
+    Route::resource('supervisors', SupervisorController::class);
+    Route::resource('secretaries', SecretaryController::class);
+
+    // MANAGER ROLE - SCOPED ROUTES
+    Route::middleware(['role:manager'])->prefix('manager')->name('manager.')->group(function () {
+        Route::get('/dashboard',  [ManagerDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/staff',      [ManagerDashboardController::class, 'staff'])->name('staff');
+        Route::get('/supervisors',[ManagerDashboardController::class, 'supervisors'])->name('supervisors');
+        Route::get('/managers',   [ManagerDashboardController::class, 'managers'])->name('managers');
+        Route::get('/nextofkin',  [ManagerDashboardController::class, 'nextofkin'])->name('nextofkin');
+    });
+    
+
+    Route::middleware(['role:supervisor'])->prefix('supervisor')->name('supervisor.')->group(function () {
+    Route::get('/dashboard',   [SupervisorDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/staff',       [SupervisorDashboardController::class, 'staff'])->name('staff');
+    Route::get('/supervisors', [SupervisorDashboardController::class, 'supervisors'])->name('supervisors');
 });
 
-Route::get('/simulate/admin', function () {
-    session(['user_role' => 'admin']);
-    return redirect()->back()->with('success', 'Switched session to Administrator mode.');
+
+
+
+    Route::middleware(['role:secretary'])->prefix('secretary')->name('secretary.')->group(function () {
+    Route::get('/dashboard', [SecretaryDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile',   [SecretaryDashboardController::class, 'profile'])->name('profile');
+    
 });
 
-// --- Placeholder Modules (Team Modules) ---
-Route::get('/branches', function () { return "Branch module coming soon"; })->name('branches.index');
-Route::get('/staff', function () { return "Staff module coming soon"; })->name('staff.index');
-Route::get('/next-of-kin', function () { return "Next of Kin module coming soon"; })->name('next-of-kin.index');
 
-Route::resource('owners', OwnerController::class);
+    Route::middleware(['role:staff'])->prefix('staffportal')->name('staff.')->group(function () {
+    Route::get('/dashboard', [StaffDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile',   [StaffDashboardController::class, 'profile'])->name('profile');
+});
+});
+
+Route::get('/registrations', [RegistrationController::class, 'index'])
+    ->name('registrations.index');
+
+Route::get('/registrations/create', [RegistrationController::class, 'create'])->name('registrations.create');
+Route::post('/registrations', [RegistrationController::class, 'store'])->name('registrations.store');
+
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+
+require __DIR__.'/auth.php';
+
+/*
+|--------------------------------------------------------------------------
+| Inspection, Lease & Property Routes
+|--------------------------------------------------------------------------
+*/
+Route::resource('inspections', InspectionController::class);
+Route::resource('leases', LeaseController::class);
+
+// ADD THIS LINE HERE:
+Route::resource('properties', \App\Http\Controllers\PropertyController::class);

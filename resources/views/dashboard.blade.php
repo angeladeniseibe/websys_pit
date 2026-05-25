@@ -1,33 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <div style="margin-bottom: 24px; font-family: sans-serif;">
-        <h1 style="color: #611c35; font-size: 24px; font-weight: 700; margin: 0;">
-            Property Portfolio Workspace 
-            <span style="color: #94a3b8; font-size: 14px; font-weight: 400; margin-left: 8px;">> Operational Control</span>
-        </h1>
+
+<div class="hero" 
+     style="background: url('{{ asset('images/bg_photo.jpeg') }}') no-repeat center center;
+            background-size: cover;
+            padding: 80px 20px;
+            text-align: center;
+            border-radius: 12px;">
+
+    <h1 class="text-4xl font-bold text-white drop-shadow">Welcome Back ✨</h1>
+    <p class="mt-2 text-white text-lg drop-shadow">
+        Manage your properties, clients, and reports in one place.
+    </p>
+</div>
+
+<div class="cards mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <div class="card bg-white/10 backdrop-blur-md p-6 rounded-xl text-center text-white border border-white/20">
+        <h3 class="text-lg font-semibold">Total Properties</h3>
+        <p class="text-2xl mt-2">0</p>
     </div>
 
-    {{-- Metrics Row Cards --}}
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px; font-family: sans-serif;">
-        <div style="background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
-            <div style="color: #94a3b8; font-size: 13px; font-weight: 500;">Total Properties</div>
-            <div style="color: #1e293b; font-size: 32px; font-weight: 700; margin: 8px 0 4px 0;">{{ $totalProperties }}</div>
-        </div>
-
-        <div style="background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
-            <div style="color: #94a3b8; font-size: 13px; font-weight: 500;">Total Clients/Owners</div>
-            <div style="color: #1e293b; font-size: 32px; font-weight: 700; margin: 8px 0 4px 0;">{{ $totalOwners }}</div>
-        </div>
-
-        <div style="background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
-            <div style="color: #94a3b8; font-size: 13px; font-weight: 500;">Available Units</div>
-            <div style="color: #15803d; font-size: 32px; font-weight: 700; margin: 8px 0 4px 0;">{{ $availableUnits }}</div>
-        </div>
+    <div class="card bg-white/10 backdrop-blur-md p-6 rounded-xl text-center text-white border border-white/20">
+        <h3 class="text-lg font-semibold">Total Clients</h3>
+        <p class="text-2xl mt-2">0</p>
     </div>
 
-    {{-- Empty State or Placeholders --}}
-    <div style="background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 48px; text-align: center; color: #94a3b8;">
-        <p>No active alerts. Your property portfolio is up to date.</p>
+    <div class="card bg-white/10 backdrop-blur-md p-6 rounded-xl text-center text-white border border-white/20">
+        <h3 class="text-lg font-semibold">Available Units</h3>
+        <p class="text-2xl mt-2">0</p>
     </div>
+
+</div>
+
 @endsection
