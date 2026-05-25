@@ -22,4 +22,18 @@ class ClientController extends Controller
 
         return view('clients.index', compact('clients', 'search'));
     }
+
+   public function myProfile()
+{
+    $user = auth()->user();
+
+    // check if user is a registered client
+    $client = Client::where('user_id', $user->id)->first();
+
+    if (!$client) {
+        abort(403, 'Access denied. Not a registered client.');
+    }
+
+    return view('clients.my-profile', compact('client'));
+}
 }

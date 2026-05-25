@@ -20,7 +20,7 @@ A Laravel-based web application that allows clients to view and avail rental pro
 
 ## Repository Link
 
-🔗 [https://github.com/your-project](https://github.com/your-project)
+🔗 https://github.com/angeladeniseibe/websys_pit.git
 
 ---
 
@@ -99,7 +99,7 @@ DB_PASSWORD=your_password
 
 **5. Run migrations**
 ```bash
-php artisan migrate
+php artisan migrate --seed
 ```
 
 **6. Start the development server**
@@ -109,14 +109,34 @@ php artisan serve
 ```
 
 ---
+ 
 
+         
 ## Default Login
 
-```txt
 Admin Account
-Email:    admin@dreamhome.com
-Password: password
-```
+email = admin@test.com
+password  = 12345678
+
+Manager Account
+email = manager@test.com
+password  = 12345678
+
+Staff Account
+email = staff@test.com
+password  = '12345678'
+
+supervisor Account
+email = supervisor@test.com
+password  =12345678
+
+secretary Account
+email = secretary@test.com
+password  =12345678
+
+Staff Account
+email = staff@test.com
+password  =12345678
 
 ---
 
@@ -136,6 +156,8 @@ Railway PostgreSQL
 | `Supervisor`   | Supervisor subtype (manager link)    |
 | `Secretary`    | Secretary subtype (typing speed)     |
 | `Next_of_kin`  | Emergency contact per staff          |
+| client	       | basic data for client		            |
+| registration	 |record for client registration	      |
 
 ### Branches Covered
 
@@ -246,6 +268,17 @@ DB_PASSWORD=<railway-password>
 
 ## Screenshots
 
+Required screenshots:
+- Login Page ![alt text](login_page.png)
+- Dashboard ![alt text](dashboard.png)
+- CRUD Module
+(Client Registration)
+Create ![alt text](registration_create.png)
+Read and Delete ![alt text](read&delete.png)
+Update ![alt text](update_registration.png)
+
+
+- PostgreSQL Database Tables
 > Drag and drop images into the GitHub README editor to upload them automatically.
 
 
