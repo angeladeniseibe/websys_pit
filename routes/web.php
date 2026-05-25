@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\StaffController;
@@ -11,8 +11,11 @@ use App\Http\Controllers\ManagerDashboardController;
 use App\Http\Controllers\SupervisorDashboardController;
 use App\Http\Controllers\SecretaryDashboardController;
 use App\Http\Controllers\StaffDashboardController;
+use App\Http\Controllers\InspectionController;
+use App\Http\Controllers\LeaseController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\RegistrationController;
 
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,17 +31,48 @@ Route::get('/register', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
+/*
+|--------------------------------------------------------------------------
+| Inspection & Lease Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('inspections', InspectionController::class);
+Route::resource('leases', LeaseController::class);
 
 /*
 |--------------------------------------------------------------------------
-| Protected Routes
+| Registration Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/registrations', [RegistrationController::class, 'index'])
+    ->name('registrations.index');
+
+Route::get('/registrations/create', [RegistrationController::class, 'create'])
+    ->name('registrations.create');
+
+Route::post('/registrations', [RegistrationController::class, 'store'])
+    ->name('registrations.store');
+
+/*
+|--------------------------------------------------------------------------
+| Client Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/clients', [ClientController::class, 'index'])
+    ->name('clients.index');
+
+/*
+|--------------------------------------------------------------------------
+| Profile Routes
 |--------------------------------------------------------------------------
 */
 
 Route::middleware('auth')->group(function () {
 
-    // PROFILE
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
 
@@ -89,5 +123,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile',   [StaffDashboardController::class, 'profile'])->name('profile');
 });
 });
+
+Route::get('/registrations', [RegistrationController::class, 'index'])
+    ->name('registrations.index');
+
+Route::get('/registrations/create', [RegistrationController::class, 'create'])->name('registrations.create');
+Route::post('/registrations', [RegistrationController::class, 'store'])->name('registrations.store');
+
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
 
 require __DIR__.'/auth.php';

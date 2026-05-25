@@ -12,14 +12,15 @@
 <div class="container">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar flex flex-col">
 
         <h1 class="logo">Dream Home</h1>
 
         <nav>
             <a href="/dashboard"  class="{{ request()->is('dashboard')   ? 'active' : '' }}">Dashboard</a>
             <a href="/properties" class="{{ request()->is('properties*') ? 'active' : '' }}">Properties</a>
-            <a href="/clients"    class="{{ request()->is('clients*')    ? 'active' : '' }}">Clients</a>
+            <a href="/registrations">Client Registration & Staff Assign</a>
+            <a href="/clients">Clients</a>
 
             <!-- STAFF & BRANCH DROPDOWN -->
             <div>
@@ -57,9 +58,19 @@
                 </div>
             </div>
             <!-- END ROLES DROPDOWN -->
-
+            
+            <a href="{{ route('inspections.index') }}">Inspections</a>
+            <a href="{{ route('leases.index') }}">Lease Management</a>
         </nav>
 
+        <!-- NAVIGATION -->
+        <nav class="flex flex-col gap-2 mt-6">
+
+         
+            
+        </nav>
+
+        <!-- LOGOUT -->
         <div class="mt-auto pt-10">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

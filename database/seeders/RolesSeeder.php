@@ -13,7 +13,7 @@ class RolesSeeder extends Seeder
             ['email' => 'admin@test.com'],
             [
                 'name'     => 'Dreamhome Admin',
-                'password' => bcrypt('12345678'),
+                'password' => ('12345678'),
                 'role'     => 'admin',
             ]
         );
@@ -22,7 +22,7 @@ class RolesSeeder extends Seeder
             ['email' => 'manager@test.com'],
             [
                 'name'      => 'Jose Reyes Manager',
-                'password'  => bcrypt('12345678'),
+                'password'  => ('12345678'),
                 'role'      => 'manager',
                 'branch_no' => 'B001',
             ]
@@ -32,7 +32,7 @@ class RolesSeeder extends Seeder
             ['email' => 'supervisor@test.com'],
             [
                 'name'      => 'Anna Macaraeg Supervisor',
-                'password'  => bcrypt('12345678'),
+                'password'  => ('12345678'),
                 'role'      => 'supervisor',
                 'branch_no' => 'B001',
                 'staff_id'  => 'ST007',
@@ -43,7 +43,7 @@ class RolesSeeder extends Seeder
             ['email' => 'secretary@test.com'],
             [
                 'name'      => 'Carmen Ilustre Secretary',
-                'password'  => bcrypt('12345678'),
+                'password'  => ('12345678'),
                 'role'      => 'secretary',
                 'branch_no' => 'B001',
                 'staff_id'  => 'ST003',
@@ -54,7 +54,7 @@ class RolesSeeder extends Seeder
             ['email' => 'staff@test.com'],
             [
                 'name'      => 'Alicia Magno Staff',
-                'password'  => bcrypt('12345678'),
+                'password'  => ('12345678'),
                 'role'      => 'staff',
                 'branch_no' => 'B001',
                 'staff_id'  => 'ST001',
