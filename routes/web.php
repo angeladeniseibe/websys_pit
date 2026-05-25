@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InspectionController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\ClientController;
