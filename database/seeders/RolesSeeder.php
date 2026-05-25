@@ -6,9 +6,19 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 
 class RolesSeeder extends Seeder
-{
+{   
     public function run(): void
     {
+         
+        User::updateOrCreate(
+            ['email' => 'admin@test.com'],
+            [
+                'name'     => 'Dreamhome Admin',
+                'password' => ('12345678'),
+                'role'     => 'admin',
+            ]
+        );
+
         // ============================================================
         // MANAGERS
         // ============================================================
