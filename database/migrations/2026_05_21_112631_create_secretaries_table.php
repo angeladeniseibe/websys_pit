@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('secretary', function (Blueprint $table) {
-            $table->string('staff_id', 10)->primary();
-$table->integer('typing_speed');
-$table->foreign('staff_id')->references('staff_id')->on('staff')->onDelete('cascade');
-        });
+        if (!Schema::hasTable('secretary')) {
+            Schema::create('secretary', function (Blueprint $table) {
+                $table->string('staff_id', 10)->primary();
+                $table->integer('typing_speed');
+                $table->foreign('staff_id')->references('staff_id')->on('staff')->onDelete('cascade');
+            });
+        }
     }
 
     /**

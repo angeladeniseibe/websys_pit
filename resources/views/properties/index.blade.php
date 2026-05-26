@@ -88,14 +88,14 @@
     {{-- Role Switcher --}}
     <div class="pm-role-bar">
         <span style="color:#5a5047; font-weight:600; font-size:13px;">Viewing as:</span>
-        <span class="pm-role-badge {{ session('user_role', 'client') }}">
-            {{ strtoupper(session('user_role', 'client')) }}
+        <span class="pm-role-badge {{ $currentRole }}">
+            {{ strtoupper($currentRole) }}
         </span>
-        <a href="{{ url('/simulate/client') }}" @if(session('user_role','client')==='client') class="active" @endif>Client</a>
-        <a href="{{ url('/simulate/admin') }}" @if(session('user_role')==='admin') class="active" @endif>Admin</a>
+        <a href="{{ url('/simulate/client') }}" @if($currentRole === 'client') class="active" @endif>Client</a>
+        <a href="{{ url('/simulate/admin') }}" @if($currentRole === 'admin') class="active" @endif>Admin</a>
     </div>
  
-    {{-- Flash --}}
+    {{-- Flash Messages --}}
     @if(session('success'))
         <div class="pm-flash">{{ session('success') }}</div>
     @endif
@@ -104,9 +104,9 @@
     <div class="pm-header">
         <div>
             <h1>Property Records</h1>
-            <p>{{ $properties->count() }} {{ Str::plural('listing', $properties->count()) }} on file</p>
+            <p>{{ $properties->count() }} {{ Str::plural('listing', $properties->count()) }} active in PostgreSQL</p>
         </div>
-        @if(session('user_role') === 'admin')
+        @if($currentRole === 'admin')
             <a href="{{ route('properties.create') }}" class="pm-add-btn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Add Property
@@ -124,7 +124,7 @@
                     <th>Monthly Rent</th>
                     <th>Street Address</th>
                     <th>City</th>
-                    @if(session('user_role') === 'admin')
+                    @if($currentRole === 'admin')
                         <th>Actions</th>
                     @endif
                 </tr>
@@ -134,10 +134,10 @@
                     <tr>
                         <td><span class="pm-id">{{ $property->property_id }}</span></td>
                         <td><span class="pm-type-pill">{{ $property->type }}</span></td>
-                        <td><span class="pm-rent">${{ number_format($property->rent, 2) }}</span></td>
+                        <td><span class="pm-rent">₱{{ number_format($property->rent, 2) }}</span></td>
                         <td>{{ $property->street }}</td>
                         <td>{{ $property->city }}</td>
-                        @if(session('user_role') === 'admin')
+                        @if($currentRole === 'admin')
                             <td>
                                 <div class="pm-actions">
                                     <a href="{{ route('properties.edit', $property->property_id) }}" class="pm-btn-edit">Edit</a>
@@ -152,8 +152,8 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="{{ session('user_role') === 'admin' ? 6 : 5 }}" class="pm-empty">
-                            No property records found.
+                        <td colspan="{{ $currentRole === 'admin' ? 6 : 5 }}" class="pm-empty">
+                            No property records found inside your database.
                         </td>
                     </tr>
                 @endforelse

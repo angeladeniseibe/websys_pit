@@ -6,12 +6,9 @@
 
 <div class="max-w-7xl mx-auto px-8 py-12">
 
-    <!-- HEADER (IMPROVED CONTRAST DESIGN) -->
     <div class="relative mb-8">
-
         <div class="bg-gray-900/80 backdrop-blur-md border border-gray-700 rounded-2xl px-6 py-5 shadow-lg flex items-center">
 
-            <!-- BACK BUTTON -->
             <div class="flex-1">
                 <a href="{{ route('registrations.index') }}"
                    class="inline-flex items-center gap-2 px-5 py-2 bg-white text-gray-900
@@ -20,7 +17,6 @@
                 </a>
             </div>
 
-            <!-- TITLE -->
             <div class="flex-1 text-center">
                 <h2 class="text-2xl md:text-3xl font-bold text-white tracking-wide drop-shadow">
                     Create Registration
@@ -30,14 +26,11 @@
                 </p>
             </div>
 
-            <!-- RIGHT SPACER -->
             <div class="flex-1"></div>
 
         </div>
-
     </div>
 
-    <!-- FORM CARD -->
     <div class="bg-white border-2 border-gray-900 rounded-2xl shadow-lg p-6">
 
         <form action="{{ route('registrations.store') }}" method="POST">
@@ -46,24 +39,20 @@
             <table class="table-auto w-full border-collapse">
                 <tbody>
 
-                    <!-- CLIENT -->
                     <tr>
                         <td class="p-3 font-semibold w-1/4">Client</td>
                         <td class="p-3">
                             <select name="client_id" class="form-control w-full border-2 border-gray-800 rounded-xl px-4 py-3" required>
                                 <option value="">-- Select Client --</option>
-
                                 @foreach($clients as $client)
                                     <option value="{{ $client->client_id }}">
                                         {{ $client->first_name }} {{ $client->last_name }}
                                     </option>
                                 @endforeach
-
                             </select>
                         </td>
                     </tr>
 
-                    <!-- BRANCH -->
                     <tr>
                         <td class="p-3 font-semibold">Branch</td>
                         <td class="p-3">
@@ -71,18 +60,15 @@
                                     class="form-control w-full border-2 border-gray-800 rounded-xl px-4 py-3"
                                     required>
                                 <option value="">-- Select Branch --</option>
-
                                 @foreach($branches as $branch)
                                     <option value="{{ $branch->branch_no }}">
                                         {{ $branch->branch_no }} — {{ $branch->city }}
                                     </option>
                                 @endforeach
-
                             </select>
                         </td>
                     </tr>
 
-                    <!-- STAFF -->
                     <tr>
                         <td class="p-3 font-semibold">Staff</td>
                         <td class="p-3">
@@ -94,7 +80,6 @@
                         </td>
                     </tr>
 
-                    <!-- DATE -->
                     <tr>
                         <td class="p-3 font-semibold">Date Registered</td>
                         <td class="p-3">
@@ -104,7 +89,6 @@
                         </td>
                     </tr>
 
-                    <!-- PROPERTY TYPE -->
                     <tr>
                         <td class="p-3 font-semibold">Preferred Property Type</td>
                         <td class="p-3">
@@ -113,7 +97,6 @@
                         </td>
                     </tr>
 
-                    <!-- MAX RENT -->
                     <tr>
                         <td class="p-3 font-semibold">Max Rent</td>
                         <td class="p-3">
@@ -122,7 +105,6 @@
                         </td>
                     </tr>
 
-                    <!-- COMMENTS -->
                     <tr>
                         <td class="p-3 font-semibold align-top">Comments</td>
                         <td class="p-3">
@@ -134,11 +116,10 @@
                 </tbody>
             </table>
 
-            <!-- SUBMIT BUTTON -->
             <div class="mt-6">
                 <button type="submit"
                         class="w-full px-6 py-3 bg-gray-900 text-white rounded-xl
-                               hover:bg-black transition font-semibold">
+                               hover:bg-black transition font-semibold text-center block shadow-md">
                     Save Registration
                 </button>
             </div>
@@ -166,9 +147,7 @@ document.getElementById('branch_no').addEventListener('change', function () {
     fetch(`/get-staff/${branchNo}`)
         .then(res => res.json())
         .then(data => {
-
             let options = '<option value="">-- Select Staff --</option>';
-
             data.forEach(staff => {
                 options += `
                     <option value="${staff.staff_id}">
@@ -176,14 +155,13 @@ document.getElementById('branch_no').addEventListener('change', function () {
                     </option>
                 `;
             });
-
             staffSelect.innerHTML = options;
         })
         .catch(() => {
             staffSelect.innerHTML = '<option value="">Error loading staff</option>';
         });
-
 });
 </script>
 
+</body>
 @endsection

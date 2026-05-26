@@ -15,6 +15,7 @@ use App\Http\Controllers\InspectionController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\PropertyController;
 
 
 
@@ -132,3 +133,41 @@ Route::resource('leases', LeaseController::class);
 
 // ADD THIS LINE HERE:
 Route::resource('properties', \App\Http\Controllers\PropertyController::class);
+
+// Standard Resource Routing
+Route::resource('properties', PropertyController::class);
+
+// Simulation Helpers (Add these blocks)
+Route::get('/simulate/client', function () {
+    session(['user_role' => 'client']);
+    return redirect()->route('properties.index');
+});
+
+Route::get('/simulate/admin', function () {
+    session(['user_role' => 'admin']);
+    return redirect()->route('properties.index');
+});
+// Protect property routes with standard authentication middleware
+Route::middleware(['auth'])->group(function () {
+    
+    Route::resource('properties', PropertyController::class);
+
+    // SECURED: Only staff or admin can simulate being a client
+    Route::get('/simulate/client', function () {
+        if (auth()->user() && in_array(strtolower(auth()->user()->role), ['admin', 'staff'])) {
+            session(['user_role' => 'client']);
+            return redirect()->route('properties.index');
+        }
+        abort(403, 'Unauthorized action. Clients cannot access simulation controls.');
+    });
+
+    // SECURED: Only actual admins can switch back to the admin view
+    Route::get('/simulate/admin', function () {
+        if (auth()->user() && strtolower(auth()->user()->role) === 'admin') {
+            session(['user_role' => 'admin']);
+            return redirect()->route('properties.index');
+        }
+        abort(403, 'Unauthorized action. Only system administrators can view as admin.');
+    });
+    
+});

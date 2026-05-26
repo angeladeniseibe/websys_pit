@@ -5,7 +5,6 @@
 
 <div class="max-w-7xl mx-auto px-8 py-12">
 
-    <!-- HEADER -->
     <div class="mb-10">
         <div class="bg-gray-900/80 backdrop-blur-md border border-gray-700
                     rounded-2xl px-8 py-8 shadow-lg text-center">
@@ -21,7 +20,6 @@
         </div>
     </div>
 
-    <!-- SEARCH + ACTIONS -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-8">
 
         <form method="GET" action="{{ route('registrations.index') }}"
@@ -65,14 +63,12 @@
 
     </div>
 
-    <!-- TABLE CARD -->
     <div class="bg-white border-2 border-gray-900 rounded-2xl shadow-lg overflow-hidden">
 
         <div class="overflow-x-auto">
 
             <table class="min-w-full text-sm">
 
-                <!-- HEADER -->
                 <thead class="bg-gray-100 text-gray-900 border-b-2 border-gray-900">
                     <tr>
                         <th class="px-6 py-5 text-left font-bold">ID</th>
@@ -87,7 +83,6 @@
                     </tr>
                 </thead>
 
-                <!-- BODY -->
                 <tbody class="divide-y-2 divide-gray-900">
 
                 @forelse ($registrations as $reg)
@@ -126,35 +121,30 @@
                             {{ $reg->date_registered ?? '—' }}
                         </td>
 
-                        <!-- ACTIONS -->
-                        <td class="px-6 py-5 flex gap-3">
+                        <td class="px-6 py-5 whitespace-nowrap">
+                            <div class="flex items-center gap-3">
+                                <a href="{{ route('registrations.edit', $reg->registration_id) }}"
+                                   class="inline-block px-4 py-2 bg-gray-900 text-white rounded-lg
+                                          hover:bg-black font-semibold text-center shadow-sm">
+                                    Edit
+                                </a>
 
-                            <a href="{{ route('registrations.edit', $reg->registration_id) }}"
-                               class="px-4 py-2 bg-gray-900 text-white rounded-lg
-                                      hover:bg-black font-semibold">
-                                Edit
-                            </a>
-
-                            {{-- ONLY ADMIN CAN SEE DELETE --}}
-                            @if(auth()->user() && auth()->user()->role === 'admin')
-
-                                <form action="{{ route('registrations.destroy', $reg->registration_id) }}"
-                                      method="POST"
-                                      onsubmit="return confirm('Delete this registration?')">
-
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="submit"
-                                            class="px-4 py-2 bg-red-700 text-white rounded-lg
-                                                   hover:bg-red-800 font-semibold">
-                                        Delete
-                                    </button>
-
-                                </form>
-
-                            @endif
-
+                                {{-- Fallback visibility verification check --}}
+                                @if(auth()->user() && (strtolower(auth()->user()->role) === 'admin' || auth()->user()->is_admin))
+                                    <form action="{{ route('registrations.destroy', $reg->registration_id) }}"
+                                          method="POST"
+                                          class="inline-block"
+                                          onsubmit="return confirm('Delete this registration?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="px-4 py-2 bg-red-700 text-white rounded-lg
+                                                       hover:bg-red-800 font-semibold shadow-sm">
+                                            Delete
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
                         </td>
 
                     </tr>
@@ -174,7 +164,6 @@
         </div>
     </div>
 
-    <!-- PAGINATION -->
     <div class="mt-6 flex justify-center">
         <div class="bg-white border-2 border-gray-900 rounded-xl px-6 py-3 shadow-md">
             {{ $registrations->withQueryString()->links() }}

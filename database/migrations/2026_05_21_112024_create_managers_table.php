@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    {if (!Schema::hasTable('next_of_kin'))
         Schema::create('manager', function (Blueprint $table) {
             $table->string('staff_id', 10)->primary();
 $table->date('date_start');

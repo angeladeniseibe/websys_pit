@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('supervisor', function (Blueprint $table) {
-            $table->string('staff_id', 10)->primary();
-$table->text('responsibility')->nullable();
-$table->foreign('staff_id')->references('staff_id')->on('staff')->onDelete('cascade');
-
-
-        });
+        if (!Schema::hasTable('supervisor')) {
+            Schema::create('supervisor', function (Blueprint $table) {
+                $table->string('staff_id', 10)->primary();
+                $table->text('responsibility')->nullable();
+                $table->foreign('staff_id')->references('staff_id')->on('staff')->onDelete('cascade');
+            });
+        }
     }
 
     /**
