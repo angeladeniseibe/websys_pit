@@ -3,6 +3,21 @@
 
 A Laravel-based web application that allows clients to view and avail rental properties online, integrated with a PostgreSQL database following the DreamHome Case Study across 10 Philippine branches.
 
+<<<<<<< HEAD
+## Project Description
+|A project that shows and deploy a Website where clients can avail rental properties online|
+
+
+## Team Members
+
+| Name		 	| Module |
+|----------------------	|--------|
+|Jo Lucero		| 1	 |
+|Vincent S. Calimutan	| 2 	 |
+|Angela Denise Ibe 	| 3 	 |
+|Aldren O Restauro	| 4 	 |
+=======
+>>>>>>> origin/Aldren_module3
 ---
 
 ## Team Members & Module Assignments

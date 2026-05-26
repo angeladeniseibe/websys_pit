@@ -121,3 +121,14 @@ Route::middleware('auth')->group(function () {
 Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
 
 require __DIR__.'/auth.php';
+
+/*
+|--------------------------------------------------------------------------
+| Inspection, Lease & Property Routes
+|--------------------------------------------------------------------------
+*/
+Route::resource('inspections', InspectionController::class);
+Route::resource('leases', LeaseController::class);
+
+// ADD THIS LINE HERE:
+Route::resource('properties', \App\Http\Controllers\PropertyController::class);
