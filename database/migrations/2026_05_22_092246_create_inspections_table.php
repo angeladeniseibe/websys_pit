@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('property_name');
             $table->date('viewing_date');
             $table->text('feedback')->nullable();
-
             $table->timestamps();
         });
         }
