@@ -119,6 +119,20 @@
 
             @endauth
 
+        <!-- NAVIGATION -->
+        <nav class="flex flex-col gap-2 mt-6">
+
+            <a href="{{ route('inspections.index') }}">Inspections</a>
+            <a href="{{ route('leases.index') }}">Lease Management</a>
+
+            <a href="/dashboard">Dashboard</a>
+            <a href="/properties">Properties</a>
+            <a href="/registrations">Client Registration & Staff Assign</a>
+            <a href="/clients">Clients</a>
+            <a href="/reports">Reports</a>
+            <a href="/leases">Leases</a>
+            <a href="/inspections">Inspection</a>
+            
         </nav>
 
         <!-- LOGOUT -->
