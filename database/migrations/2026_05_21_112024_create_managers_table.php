@@ -10,15 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {if (!Schema::hasTable('next_of_kin'))
-        Schema::create('manager', function (Blueprint $table) {
-            $table->string('staff_id', 10)->primary();
-$table->date('date_start');
-$table->decimal('car_allowance', 10, 2);
-$table->decimal('bonus_payment', 10, 2);
-$table->foreign('staff_id')->references('staff_id')->on('staff')->onDelete('cascade');
-        });
-    }
+    {
+        if (!Schema::hasTable('manager')) {
+            Schema::create('manager', function (Blueprint $table) {
+                $table->string('staff_id', 10)->primary();
+                $table->date('date_start');
+                $table->decimal('car_allowance', 10, 2);
+                $table->decimal('bonus_payment', 10, 2);
+                $table->foreign('staff_id')->references('staff_id')->on('staff')->onDelete('cascade');
+            });
+        }
+    } // This was the missing bracket!
 
     /**
      * Reverse the migrations.
