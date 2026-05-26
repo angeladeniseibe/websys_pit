@@ -26,35 +26,34 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      */
-  public function store(Request $request): RedirectResponse
+ public function store(Request $request): RedirectResponse
 {
     $request->validate([
         'first_name' => ['required', 'string', 'max:255'],
         'last_name'  => ['required', 'string', 'max:255'],
         'email'      => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
         'password'   => ['required', 'confirmed', Rules\Password::defaults()],
-        'address'    => ['required', 'string', 'max:255'], // <-- ADD
-        'phone'      => ['required', 'string', 'max:25'],  // <-- ADD
+        'address'    => ['required', 'string', 'max:255'],
+        'phone'      => ['required', 'string', 'max:25'],
     ]);
 
-    // 1. Create USER
+    // 1. Create USER (ONLY AUTH DATA)
     $user = User::create([
+        'name'     => $request->first_name . ' ' . $request->last_name,
+        'email'    => $request->email,
+        'password' => Hash::make($request->password),
+        'role'     => 'staff',
+    ]);
+
+    // 2. Create CLIENT (PROFILE DATA - MUST MATCH MIGRATION)
+    Client::create([
+        'user_id'    => $user->id,
         'first_name' => $request->first_name,
         'last_name'  => $request->last_name,
-        'name'       => $request->first_name . ' ' . $request->last_name,
-        'email'      => $request->email,
-        'password'   => Hash::make($request->password),
+        'address'    => $request->address,
+        'phone'      => $request->phone,
+        'email'      => $request->email, // optional but OK since nullable
     ]);
-
-    // 2. Create CLIENT (address + phone added)
-    Client::create([
-    'user_id'    => $user->id,   // 🔥 THIS IS THE LINK (IMPORTANT)
-    'first_name' => $request->first_name,
-    'last_name'  => $request->last_name,
-    'email'      => $request->email,
-    'address'    => $request->address,
-    'phone'      => $request->phone,
-]);
 
     event(new Registered($user));
 

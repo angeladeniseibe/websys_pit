@@ -8,14 +8,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+#[Fillable(['name', 'email', 'password', 'role', 'branch_no', 'staff_id'])]
+#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = [
+     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        'branch_no',
+        'staff_id',
     ];
 
     protected $hidden = [
@@ -31,8 +36,29 @@ class User extends Authenticatable
         ];
     }
 
-    public function client()
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isManager(): bool
+    {
+        return $this->role === 'manager';
+    }
+
+    public function isSupervisor(): bool
+    {
+        return $this->role === 'supervisor';
+    }
+      public function client()
     {
         return $this->hasOne(Client::class);
     }
+    public function isClient(): bool
+{
+    return $this->role === 'client';
 }
+}
+// 👆 nothing goes after this closing brace
+  
+

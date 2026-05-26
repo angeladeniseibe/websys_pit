@@ -11,6 +11,7 @@ class Registration extends Model
 
     protected $fillable = [
         'client_id',
+        'staff_id',
         'branch_no',
         'date_registered',
         'preferred_property_type',

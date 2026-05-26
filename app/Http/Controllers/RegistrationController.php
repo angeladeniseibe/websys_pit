@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Registration;
 use App\Models\Client;
+use App\Models\Branch;
+use App\Models\Staff;
 
 class RegistrationController extends Controller
 {
@@ -28,20 +30,21 @@ class RegistrationController extends Controller
     }
 
     // Show create registration form
-    public function create()
-    {
-        $clients = Client::all();
+  public function create()
+{
+    $clients = Client::all();
+    $branches = Branch::orderBy('branch_no')->get();
 
-        return view('registrations.create', compact('clients'));
-    }
+    return view('registrations.create', compact('clients', 'branches'));
+}
 
-    // Store new registration
+    // Store new registration (staff_id added)
     public function store(Request $request)
     {
         $request->validate([
             'client_id' => 'required|exists:clients,client_id',
-            'staff_id' => 'required',
-            'branch_no' => 'nullable',
+            'staff_id' => 'required',   // <-- VALIDATED
+            'branch_no' => 'required|exists:branch,branch_no',
             'date_registered' => 'required|date',
             'preferred_property_type' => 'nullable',
             'max_rent' => 'nullable|numeric',
@@ -50,7 +53,7 @@ class RegistrationController extends Controller
 
         Registration::create([
             'client_id' => $request->client_id,
-            'staff_id' => $request->staff_id,
+            'staff_id' => $request->staff_id,   // <-- INCLUDED IN CREATE
             'branch_no' => $request->branch_no,
             'date_registered' => $request->date_registered,
             'preferred_property_type' => $request->preferred_property_type,
@@ -59,6 +62,29 @@ class RegistrationController extends Controller
         ]);
 
         return redirect()->route('registrations.index')
-            ->with('success', 'Registration created successfully!');
+                         ->with('success', 'Registration created successfully!');
+    }
+
+        public function edit($id)
+    {
+        $registration = Registration::findOrFail($id);
+
+        $clients = Client::all();
+        $branches = Branch::orderBy('branch_no')->get();
+
+       $staff = [];
+
+    if ($registration->branch_no) {
+        $staff = Staff::where('branch_no', $registration->branch_no)
+                    ->orderBy('last_name')
+                    ->get();
+        }
+
+        return view('registrations.edit', compact(
+            'registration',
+            'clients',
+            'branches',
+            'staff'
+        ));
     }
 }

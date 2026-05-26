@@ -11,15 +11,21 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('clients', function (Blueprint $table) {
-        $table->id('client_id');
-        $table->string('first_name');
-        $table->string('last_name');
-         $table->string('address')->nullable(); // ✅ FIX
-            $table->string('phone')->nullable(); 
-          $table->string('email')->nullable(); // ✅ ADD THIS ONLY
-        $table->timestamps();
-    });
+  Schema::create('clients', function (Blueprint $table) {
+    $table->id('client_id');
+
+    $table->foreignId('user_id')
+        ->constrained('users')
+        ->onDelete('cascade');
+
+    $table->string('first_name');
+    $table->string('last_name');
+    $table->string('address')->nullable();
+    $table->string('phone')->nullable();
+    $table->string('email')->nullable();
+
+    $table->timestamps();
+});
 }
 
     /**
