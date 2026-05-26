@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BranchController;
@@ -17,7 +18,11 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\PropertyController;
 
-
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,143 +36,91 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-/*
-|--------------------------------------------------------------------------
-| Inspection & Lease Routes
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('inspections', InspectionController::class);
-Route::resource('leases', LeaseController::class);
-
-/*
-|--------------------------------------------------------------------------
-| Registration Routes
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('registrations', RegistrationController::class);
 Route::get('/get-staff/{branch_no}', [StaffController::class, 'getStaffByBranch']);
+
 /*
 |--------------------------------------------------------------------------
-| Client Routes
-|--------------------------------------------------------------------------
-*/
-Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
-Route::get('/my-profile', [ClientController::class, 'myProfile'])
-    ->middleware('auth')
-    ->name('clients.my-profile');
-/*
-|--------------------------------------------------------------------------
-| Profile Routes
+| Authenticated Routes
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
 
-    Route::get('/profile', [ProfileController::class, 'edit'])
-        ->name('profile.edit');
+    // DASHBOARD
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-    Route::patch('/profile', [ProfileController::class, 'update'])
-        ->name('profile.update');
+    // PROFILE
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::delete('/profile', [ProfileController::class, 'destroy'])
-        ->name('profile.destroy');
+    // CLIENTS
+    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+    Route::get('/my-profile', [ClientController::class, 'myProfile'])->name('clients.my-profile');
 
-    // BRANCH
+    // CORE RESOURCES
+    Route::resource('inspections', InspectionController::class);
+    Route::resource('leases', LeaseController::class);
+    Route::resource('properties', PropertyController::class);
+    Route::resource('registrations', RegistrationController::class);
+
+    // STAFF & BRANCH
     Route::resource('branches', BranchController::class);
-
-    // STAFF
     Route::resource('staff', StaffController::class);
     Route::resource('next-of-kin', NextOfKinController::class);
-    Route::resource('managers',    ManagerController::class);
+    Route::resource('managers', ManagerController::class);
     Route::resource('supervisors', SupervisorController::class);
     Route::resource('secretaries', SecretaryController::class);
 
-    // MANAGER ROLE - SCOPED ROUTES
-    Route::middleware(['role:manager'])->prefix('manager')->name('manager.')->group(function () {
-        Route::get('/dashboard',  [ManagerDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/staff',      [ManagerDashboardController::class, 'staff'])->name('staff');
-        Route::get('/supervisors',[ManagerDashboardController::class, 'supervisors'])->name('supervisors');
-        Route::get('/managers',   [ManagerDashboardController::class, 'managers'])->name('managers');
-        Route::get('/nextofkin',  [ManagerDashboardController::class, 'nextofkin'])->name('nextofkin');
-    });
-    
-
-    Route::middleware(['role:supervisor'])->prefix('supervisor')->name('supervisor.')->group(function () {
-    Route::get('/dashboard',   [SupervisorDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/staff',       [SupervisorDashboardController::class, 'staff'])->name('staff');
-    Route::get('/supervisors', [SupervisorDashboardController::class, 'supervisors'])->name('supervisors');
-});
-
-
-
-
-    Route::middleware(['role:secretary'])->prefix('secretary')->name('secretary.')->group(function () {
-    Route::get('/dashboard', [SecretaryDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/profile',   [SecretaryDashboardController::class, 'profile'])->name('profile');
-    
-});
-
-
-    Route::middleware(['role:staff'])->prefix('staffportal')->name('staff.')->group(function () {
-    Route::get('/dashboard', [StaffDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/profile',   [StaffDashboardController::class, 'profile'])->name('profile');
-});
-});
-
-Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
-
-require __DIR__.'/auth.php';
-
-/*
-|--------------------------------------------------------------------------
-| Inspection, Lease & Property Routes
-|--------------------------------------------------------------------------
-*/
-Route::resource('inspections', InspectionController::class);
-Route::resource('leases', LeaseController::class);
-
-// ADD THIS LINE HERE:
-Route::resource('properties', \App\Http\Controllers\PropertyController::class);
-
-// Standard Resource Routing
-Route::resource('properties', PropertyController::class);
-
-// Simulation Helpers (Add these blocks)
-Route::get('/simulate/client', function () {
-    session(['user_role' => 'client']);
-    return redirect()->route('properties.index');
-});
-
-Route::get('/simulate/admin', function () {
-    session(['user_role' => 'admin']);
-    return redirect()->route('properties.index');
-});
-// Protect property routes with standard authentication middleware
-Route::middleware(['auth'])->group(function () {
-    
-    Route::resource('properties', PropertyController::class);
-
-    // SECURED: Only staff or admin can simulate being a client
+    // SIMULATION HELPERS (admin/staff only)
     Route::get('/simulate/client', function () {
         if (auth()->user() && in_array(strtolower(auth()->user()->role), ['admin', 'staff'])) {
             session(['user_role' => 'client']);
             return redirect()->route('properties.index');
         }
-        abort(403, 'Unauthorized action. Clients cannot access simulation controls.');
+        abort(403, 'Unauthorized action.');
     });
 
-    // SECURED: Only actual admins can switch back to the admin view
     Route::get('/simulate/admin', function () {
         if (auth()->user() && strtolower(auth()->user()->role) === 'admin') {
             session(['user_role' => 'admin']);
             return redirect()->route('properties.index');
         }
-        abort(403, 'Unauthorized action. Only system administrators can view as admin.');
+        abort(403, 'Unauthorized action.');
     });
-    
+
+    /*
+    |--------------------------------------------------------------------------
+    | Role-Based Routes
+    |--------------------------------------------------------------------------
+    */
+
+    Route::middleware(['role:manager'])->prefix('manager')->name('manager.')->group(function () {
+        Route::get('/dashboard',   [ManagerDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/staff',       [ManagerDashboardController::class, 'staff'])->name('staff');
+        Route::get('/supervisors', [ManagerDashboardController::class, 'supervisors'])->name('supervisors');
+        Route::get('/managers',    [ManagerDashboardController::class, 'managers'])->name('managers');
+        Route::get('/nextofkin',   [ManagerDashboardController::class, 'nextofkin'])->name('nextofkin');
+    });
+
+    Route::middleware(['role:supervisor'])->prefix('supervisor')->name('supervisor.')->group(function () {
+        Route::get('/dashboard',   [SupervisorDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/staff',       [SupervisorDashboardController::class, 'staff'])->name('staff');
+        Route::get('/supervisors', [SupervisorDashboardController::class, 'supervisors'])->name('supervisors');
+    });
+
+    Route::middleware(['role:secretary'])->prefix('secretary')->name('secretary.')->group(function () {
+        Route::get('/dashboard', [SecretaryDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/profile',   [SecretaryDashboardController::class, 'profile'])->name('profile');
+    });
+
+    Route::middleware(['role:staff'])->prefix('staffportal')->name('staff.')->group(function () {
+        Route::get('/dashboard', [StaffDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/profile',   [StaffDashboardController::class, 'profile'])->name('profile');
+    });
+
 });
+
+require __DIR__.'/auth.php';
