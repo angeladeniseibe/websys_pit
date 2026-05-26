@@ -4,7 +4,8 @@
 
 <body style="background: url('{{ asset('images/bg_photo.jpeg') }}') no-repeat center center fixed; background-size: cover;">
 
-<div class="table-section">
+<div class="min-h-screen flex items-center justify-center px-4">
+
 
     <div class="page-header">
         <h1>Add Inspection</h1>

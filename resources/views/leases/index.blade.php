@@ -24,7 +24,6 @@
                     <th>Property</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>Status</th>
                 </tr>
             </thead>
 
@@ -35,7 +34,6 @@
                     <td>{{ $lease->property_name }}</td>
                     <td>{{ $lease->start_date }}</td>
                     <td>{{ $lease->end_date }}</td>
-                    <td>{{ $lease->status }}</td>
                 </tr>
                 @endforeach
             </tbody>

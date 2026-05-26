@@ -11,6 +11,6 @@ class Lease extends Model
         'property_name',
         'start_date',
         'end_date',
-        'status'
+        
     ];
 }
