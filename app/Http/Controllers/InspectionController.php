@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Inspection;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,8 @@ class InspectionController extends Controller
 
     public function create()
     {
-        return view('inspections.create');
+        $clients = Client::all();
+        return view('inspections.create', ['clients' => $clients]);
     }
 
     public function store(Request $request)

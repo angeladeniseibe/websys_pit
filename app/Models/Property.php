@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
 {
+
+    protected $table = 'property';
+
     // Protects your database from mass-assignment vulnerabilities
     protected $fillable = ['name', 'address', 'status', 'branch_id', 'staff_id'];
 

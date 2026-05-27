@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lease;
+use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LeaseController extends Controller
 {
@@ -16,7 +18,8 @@ class LeaseController extends Controller
 
     public function create()
     {
-        return view('leases.create');
+        $properties = Property::all();
+        return view('leases.create', ['properties' => $properties]);
     }
 
     public function store(Request $request)

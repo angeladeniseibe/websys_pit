@@ -14,10 +14,14 @@
     <form action="{{ route('inspections.store') }}" method="POST" class="space-y-4">
         @csrf
 
-        <input type="text"
-               name="client_name"
-               placeholder="Client Name"
-               class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
+
+        <select name="client_name" class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
+            <option value="" disabled selected>Select Client</option>
+            @foreach($clients as $client)
+            <option value="{{$client->client_id}}">{{$client->first_name}} {{$client->last_name}}</option>
+            @endforeach
+        </select>
+
 
         <input type="text"
                name="property_name"

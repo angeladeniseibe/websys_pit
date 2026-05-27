@@ -19,11 +19,12 @@
                placeholder="Client Name"
                class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
 
-        <!-- PROPERTY -->
-        <input type="text"
-               name="property_name"
-               placeholder="Property"
-               class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
+        <select name="property_id" class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
+            <option value="" disabled selected>Select Property</option>
+            @foreach($properties as $property)
+                <option value="{{$property->property_id}}">{{$property->property_id}}</option>
+            @endforeach
+        </select>
 
         <!-- RENT -->
         <input type="number"

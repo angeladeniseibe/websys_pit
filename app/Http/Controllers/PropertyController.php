@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,7 +39,8 @@ class PropertyController extends Controller
     public function create()
     {
         $this->requireAdmin();
-        return view('properties.create');
+        $branches = Branch::all();
+        return view('properties.create', ['branches' => $branches]);
     }
 
     /**
@@ -56,6 +58,7 @@ class PropertyController extends Controller
             'city'        => 'required|string|max:100',
             'postcode'    => 'nullable|string|max:20',
             'owner_id'    => 'nullable|string|max:20',
+            'branch_no'    => 'nullable|string|max:20'
         ]);
 
         DB::table('property')->insert($validated);
@@ -164,7 +167,7 @@ class PropertyController extends Controller
 
             return $simulatedRole;
         }
-        
+
         return $trueDatabaseRole;
     }
 

@@ -24,7 +24,6 @@ class Client extends Model
         return $this->hasMany(Registration::class, 'client_id');
     }
 
-    // ✅ ADDED ONLY IF YOU ARE USING USER ↔ CLIENT RELATIONSHIP
     public function user()
     {
         return $this->belongsTo(User::class);

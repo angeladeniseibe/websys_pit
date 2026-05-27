@@ -81,10 +81,6 @@
                         </div>
                     </div>
 
-                    <a href="/reports" class="{{ request()->is('reports*') ? 'active' : '' }}">
-                        Reports
-                    </a>
-
                     <div>
                         <button onclick="toggleRoles()" id="roles-toggle"
                             style="display:flex;align-items:center;justify-content:space-between;width:100%;background:transparent;color:#cbd5e1;border:none;padding:11px 16px;font-size:15px;border-radius:10px;cursor:pointer;">

@@ -146,6 +146,15 @@
                         @error('rent') <span class="pm-error">{{ $message }}</span> @enderror
                     </div>
                     <div class="pm-field">
+                        <label>Branch No.</label>
+                        <select name="branch_no" class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
+                            <option value="" disabled selected>Select Branch</option>
+                            @foreach($branches as $branch)
+                                <option value="{{$branch->branch_no}}">{{$branch->branch_no}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="pm-field">
                         <label>Owner ID</label>
                         <input type="text" name="owner_id"
                                value="{{ old('owner_id', $property->owner_id ?? '') }}"
@@ -153,6 +162,7 @@
                         @error('owner_id') <span class="pm-error">{{ $message }}</span> @enderror
                     </div>
                 </div>
+
 
                 {{-- Location --}}
                 <div class="pm-section-label">Location</div>
