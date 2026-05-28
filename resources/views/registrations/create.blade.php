@@ -72,6 +72,7 @@
                     <tr>
                         <td class="p-3 font-semibold">Staff</td>
                         <td class="p-3">
+                            {{-- Empty on load; populated by JS when branch is selected --}}
                             <select name="staff_id" id="staff_id"
                                     class="form-control w-full border-2 border-gray-800 rounded-xl px-4 py-3"
                                     required>
