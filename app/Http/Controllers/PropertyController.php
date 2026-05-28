@@ -180,4 +180,16 @@ class PropertyController extends Controller
             abort(403, 'This action is strictly restricted to system administrators.');
         }
     }
+
+        public function getRent(string $id)
+    {
+        $property = \DB::table('property')->where('property_id', $id)->first();
+
+        if (!$property) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+
+        return response()->json(['rent' => $property->rent]);
+    }
+
 }

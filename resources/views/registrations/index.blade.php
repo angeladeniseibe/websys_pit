@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<body style="background: url('{{ asset('images/bg_photo.jpeg') }}') no-repeat center center fixed; background-size: cover;">
 
 <div class="max-w-7xl mx-auto px-8 py-12">
 

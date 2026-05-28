@@ -2,52 +2,98 @@
 
 @section('content')
 
-<body style="background: url('{{ asset('images/bg_photo.jpeg') }}') no-repeat center center fixed; background-size: cover;">
 
-<div class="min-h-screen flex items-center justify-center px-4">
+<div class="max-w-7xl mx-auto px-8 py-12">
 
-
-    <div class="page-header">
-        <h1>Add Inspection</h1>
+    <!-- HEADER -->
+    <div class="mb-8">
+        <div class="bg-gray-900/80 backdrop-blur-md border border-gray-700
+                    rounded-2xl px-8 py-8 shadow-lg text-center">
+            <h1 class="text-3xl font-bold text-white">
+                Add Inspection
+            </h1>
+        </div>
     </div>
 
-    <form action="{{ route('inspections.store') }}" method="POST" class="space-y-4">
-        @csrf
+    <!-- BACK BUTTON -->
+    <div class="mb-6">
+        <a href="{{ route('inspections.index') }}"
+           class="px-5 py-3 bg-gray-200 border-2 border-gray-800 rounded-xl
+                  hover:bg-gray-300 font-semibold">
+            ← Back to Inspections
+        </a>
+    </div>
 
+    <!-- FORM CARD -->
+    <div class="bg-white border-2 border-gray-900 rounded-2xl shadow-lg p-6">
 
-        <select name="client_name" class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
-            <option value="" disabled selected>Select Client</option>
-            @foreach($clients as $client)
-            <option value="{{$client->client_id}}">{{$client->first_name}} {{$client->last_name}}</option>
-            @endforeach
-        </select>
+        <form action="{{ route('inspections.store') }}" method="POST">
+            @csrf
 
+            <table class="table-auto w-full border-collapse">
+                <tbody>
 
-        <input type="text"
-               name="property_name"
-               placeholder="Property Name"
-               class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none">
+                    <tr>
+                        <td class="p-3 font-semibold w-1/4">Client</td>
+                        <td class="p-3">
+                            <select name="client_name"
+                                    class="form-control w-full border-2 border-gray-800 rounded-xl px-4 py-3"
+                                    required>
+                                <option value="">-- Select Client --</option>
+                                @foreach($clients as $client)
+                                    <option value="{{ $client->first_name }} {{ $client->last_name }}">
+                                        {{ $client->first_name }} {{ $client->last_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
 
-        <!-- VIEWING DATE -->
-        <div class="space-y-1">
-            <label class="text-white text-sm font-medium">Viewing Date</label>
-            <input type="date"
-                   name="viewing_date"
-                   class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none">
-        </div>
+                    <tr>
+                        <td class="p-3 font-semibold">Property Name</td>
+                        <td class="p-3">
+                            <input type="text"
+                                   name="property_name"
+                                   placeholder="Enter property name"
+                                   class="form-control w-full border-2 border-gray-800 rounded-xl px-4 py-3"
+                                   required>
+                        </td>
+                    </tr>
 
-        <textarea name="feedback"
-                  placeholder="Feedback"
-                  rows="4"
-                  class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none"></textarea>
+                    <tr>
+                        <td class="p-3 font-semibold">Viewing Date</td>
+                        <td class="p-3">
+                            <input type="date"
+                                   name="viewing_date"
+                                   class="form-control w-full border-2 border-gray-800 rounded-xl px-4 py-3"
+                                   required>
+                        </td>
+                    </tr>
 
-        <button type="submit" class="btn-glass">
-            <span>➕</span> Save Inspection
-        </button>
+                    <tr>
+                        <td class="p-3 font-semibold align-top">Feedback</td>
+                        <td class="p-3">
+                            <textarea name="feedback"
+                                      rows="4"
+                                      placeholder="Enter feedback..."
+                                      class="form-control w-full border-2 border-gray-800 rounded-xl px-4 py-3"></textarea>
+                        </td>
+                    </tr>
 
-    </form>
+                </tbody>
+            </table>
 
-</div>
+            <div class="mt-6">
+                <button type="submit"
+                        class="w-full px-6 py-3 bg-gray-900 text-white rounded-xl
+                               hover:bg-black transition font-semibold text-center block shadow-md">
+                    Save Inspection
+                </button>
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 
