@@ -42,7 +42,6 @@ class RegisteredUserController extends Controller
         'name'     => $request->first_name . ' ' . $request->last_name,
         'email'    => $request->email,
         'password' => Hash::make($request->password),
-        'role'     => 'staff',
     ]);
 
     // 2. Create CLIENT (PROFILE DATA - MUST MATCH MIGRATION)

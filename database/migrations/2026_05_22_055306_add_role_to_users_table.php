@@ -9,11 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up()
+  public function up()
 {
     Schema::table('users', function (Blueprint $table) {
         $table->enum('role', ['admin', 'manager', 'supervisor', 'secretary', 'staff'])
-              ->default('manager');
+              ->nullable();  // no default — stores NULL when role isn't set
     });
 }
 
